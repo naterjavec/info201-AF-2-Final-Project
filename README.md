@@ -1,2 +1,2 @@
 # info201-AF-2-Final-Project
-Final Project Stuff
+Proposal: https://github.com/naterjavec/info201-AF-2-Final-Project/wiki
