@@ -10,9 +10,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Shiny Presentation
 
-This R Markdown presentation is made interactive using Shiny. The viewers of the presentation can change the assumptions underlying what's presented and see the results immediately. 
-
-To learn more, see [Interactive Documents](http://rmarkdown.rstudio.com/authoring_shiny.html).
+The stakeholders within this situation are the people who food prices are relevant to those who have their quality of life or even survival fluctuate with food prices. The opposite stakeholders would be industries that affect those prices. Their values and quality of life over profitability may be in direct contrast with each other. It is the policymakers’ task to determine whether limiting industries or risking people’s livelihood are the beneficial choices for their constituency.
 
 ## Interactive Plot
 
