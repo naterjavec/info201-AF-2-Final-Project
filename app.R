@@ -66,5 +66,6 @@ are the beneficial choices for their constituency."),
             
         }
 
+
         # Run the application 
         shinyApp(ui = ui, server = server)
