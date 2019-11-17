@@ -9,15 +9,11 @@
 
 library(shiny)
 
-
-
-# Define UI for application that draws a histogram
-ui <- fluidPage(
-
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
-    # Sidebar with a slider input for number of bins 
+page_one <- tabPanel(
+    "About",
+    titlePanel("About"),
+    
+    # This content uses a sidebar layout
     sidebarLayout(
         sidebarPanel("The stakeholders within this situation are the people
 who food prices are relevant to - those who have their
@@ -29,23 +25,46 @@ each other. It is the policymakers’ task to determine
 whether limiting industries or risking people’s livelihood
 are the beneficial choices for their constituency."),
         mainPanel(
-           plotOutput("distPlot")
+            h3("Primary Content"),
+            p("Plots, data tables, etc. would go here")
         )
     )
 )
-# Define server logic required to draw a histogram
-# server <- function(input, output) {
-# 
-#     output$distPlot <- renderPlot({
-#         # generate bins based on input$bins from ui.R
-#         x    <- faithful[, 2]
-#         bins <- seq(min(x), max(x), length.out = input$bins + 1)
-# 
-#         # draw the histogram with the specified number of bins
-#         hist(x, breaks = bins, col = 'darkgray', border = 'white')
-#     })
-# }
+        
+        page_two <- tabPanel(
+            "Second Page"
+        )
+        
+        # Define content for the third page
+        page_three <- tabPanel(
+            "Third Page"
+        )
+        
+        page_four <- tabPanel(
+            "Fourth Page"
+        )
+        
+        page_five <- tabPanel(
+            "5th Page"
+        )
+        
+        page_six <- tabPanel(
+            "Sixth Page"
+        )
 
-# Run the application 
-shinyApp(ui = ui, server = server)
+        ui <- navbarPage(
+            "My Application",
+            page_one,
+            page_two,
+            page_three,
+            page_four, 
+            page_five,
+            page_six
+        )
+        
+        server <- function(input, output) {
+            
+        }
 
+        # Run the application 
+        shinyApp(ui = ui, server = server)
