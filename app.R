@@ -12,10 +12,10 @@ library(shiny)
 page_one <- tabPanel(
     "About",
     titlePanel("About"),
-    
-    # This content uses a sidebar layout
     sidebarLayout(
-        sidebarPanel("The stakeholders within this situation are the people
+        sidebarPanel(
+        h4("Who Cares"),
+        p("The stakeholders within this situation are the people
 who food prices are relevant to - those who have their
 quality of life or even survival fluctuate with food
 prices. The opposite stakeholders would be industries
@@ -23,36 +23,75 @@ that affect those prices. Their values and quality of
 life over profitability may be in direct contrast with
 each other. It is the policymakers’ task to determine
 whether limiting industries or risking people’s livelihood
-are the beneficial choices for their constituency."),
+are the beneficial choices for their constituency.")),
         mainPanel(
             h3("Primary Content"),
             p("Plots, data tables, etc. would go here")
         )
-    )
+)
 )
         
-        page_two <- tabPanel(
-            "Second Page"
+page_two <- tabPanel(
+            "Second Page",
+            sidebarLayout(
+              sidebarPanel(
+                #stuff goes here
+              ),
+              mainPanel(
+                  #stuff
+              )
+            )
         )
         
-        # Define content for the third page
-        page_three <- tabPanel(
-            "Third Page"
+page_three <- tabPanel(
+            "Third Page",
+            sidebarLayout(
+                sidebarPanel(
+                    #stuff here
+                ),
+                mainPanel(
+                    #stuff here
+                )
+            )
         )
         
-        page_four <- tabPanel(
-            "Fourth Page"
+page_four <- tabPanel(
+            "Fourth Page",
+            sidebarLayout(
+                sidebarPanel(
+                    #stuff here
+                ),
+                mainPanel(
+                    #stuff here
+                )
+            )
         )
         
-        page_five <- tabPanel(
-            "5th Page"
+page_five <- tabPanel(
+            "Fifth Page",
+            sidebarLayout(
+                sidebarPanel(
+                    #stuff here
+                ),
+                mainPanel(
+                    #stuff here
+                )
+            )
         )
         
-        page_six <- tabPanel(
-            "Sixth Page"
+page_six <- tabPanel(
+            "Sixth Page",
+            sidebarLayout(
+                sidebarPanel(
+                    #stuff here
+                ),
+                mainPanel(
+                    #stuff here
+                )
+            )
         )
 
-        ui <- navbarPage(
+ui <- navbarPage(
             "My Application",
             page_one,
             page_two,
@@ -62,9 +101,8 @@ are the beneficial choices for their constituency."),
             page_six
         )
         
-        server <- function(input, output) {
+server <- function(input, output) {
             
         }
 
-        # Run the application 
-        shinyApp(ui = ui, server = server)
+shinyApp(ui = ui, server = server)
