@@ -25,12 +25,25 @@ each other. It is the policymakers’ task to determine
 whether limiting industries or risking people’s livelihood
 are the beneficial choices for their constituency.")),
         mainPanel(
-            h3("Primary Content"),
-            p("Plots, data tables, etc. would go here")
+            h3("Ask Yourself..."),
+            h4("Is the price of food in major cities affected
+            by global temperatures?"),
+            h4("Will climate change be a factor in raising food prices?"),
+            h3("The Issue"),
+            p("There are varying levels of doubt about
+            the effects or even existence of climate
+            change. A typical counterpoint against
+            climate change legislation is the fact that
+            it limits industry, and by extension, the many
+            affected by industry growth. However, these same
+            people could suffer effects far outweighing those
+            of industry limitation in the near future, yet
+            the legitimacy of these effects is still struggling
+            to be recognized in legislation.")
+            )
         )
 )
-)
-        
+
 page_two <- tabPanel(
             "Second Page",
             sidebarLayout(
@@ -105,10 +118,8 @@ server <- function(input, output) {
             
         }
 
-<<<<<<< HEAD
 shinyApp(ui = ui, server = server)
-=======
 
-        # Run the application 
-        shinyApp(ui = ui, server = server)
->>>>>>> 0363c213daa511ce311acf33db963474ebe9bec8
+
+
+
