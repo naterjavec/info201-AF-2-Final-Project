@@ -39,7 +39,9 @@ are the beneficial choices for their constituency.")),
             people could suffer effects far outweighing those
             of industry limitation in the near future, yet
             the legitimacy of these effects is still struggling
-            to be recognized in legislation.")
+            to be recognized in legislation."),
+            h3(#add hyperlinks to datasets here
+                )
             )
         )
 )
