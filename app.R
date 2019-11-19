@@ -39,7 +39,9 @@ are the beneficial choices for their constituency.")),
             people could suffer effects far outweighing those
             of industry limitation in the near future, yet
             the legitimacy of these effects is still struggling
-            to be recognized in legislation.")
+            to be recognized in legislation."),
+            h3(#add hyperlinks to datasets here
+                )
             )
         )
 )
@@ -51,7 +53,7 @@ page_two <- tabPanel(
                 #stuff goes here
               ),
               mainPanel(
-                  #stuff
+                  #graph
               )
             )
         )
@@ -105,7 +107,7 @@ page_six <- tabPanel(
         )
 
 ui <- navbarPage(
-            "Stage 2",
+            "The Effect of Climate Change on Food Prices",
             page_one,
             page_two,
             page_three,
