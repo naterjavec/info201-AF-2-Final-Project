@@ -45,7 +45,7 @@ are the beneficial choices for their constituency.")),
 )
 
 page_two <- tabPanel(
-            "Second Page",
+            "Problem Situation",
             sidebarLayout(
               sidebarPanel(
                 #stuff goes here
@@ -57,7 +57,7 @@ page_two <- tabPanel(
         )
         
 page_three <- tabPanel(
-            "Third Page",
+            "Data Critique",
             sidebarLayout(
                 sidebarPanel(
                     #stuff here
@@ -69,7 +69,7 @@ page_three <- tabPanel(
         )
         
 page_four <- tabPanel(
-            "Fourth Page",
+            "Visualization",
             sidebarLayout(
                 sidebarPanel(
                     #stuff here
@@ -81,7 +81,7 @@ page_four <- tabPanel(
         )
         
 page_five <- tabPanel(
-            "Fifth Page",
+            "Further Inquiry",
             sidebarLayout(
                 sidebarPanel(
                     #stuff here
@@ -105,7 +105,7 @@ page_six <- tabPanel(
         )
 
 ui <- navbarPage(
-            "My Application",
+            "Stage 2",
             page_one,
             page_two,
             page_three,
