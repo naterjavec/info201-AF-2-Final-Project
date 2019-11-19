@@ -9,41 +9,117 @@
 
 library(shiny)
 
-# Define UI for application that draws a histogram
-ui <- fluidPage(
-
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
-    # Sidebar with a slider input for number of bins 
+page_one <- tabPanel(
+    "About",
+    titlePanel("About"),
     sidebarLayout(
         sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
-
-        # Show a plot of the generated distribution
+        h4("Who Cares"),
+        p("The stakeholders within this situation are the people
+who food prices are relevant to - those who have their
+quality of life or even survival fluctuate with food
+prices. The opposite stakeholders would be industries
+that affect those prices. Their values and quality of
+life over profitability may be in direct contrast with
+each other. It is the policymakers’ task to determine
+whether limiting industries or risking people’s livelihood
+are the beneficial choices for their constituency.")),
         mainPanel(
-           plotOutput("distPlot")
+            h3("Ask Yourself..."),
+            h4("Is the price of food in major cities affected
+            by global temperatures?"),
+            h4("Will climate change be a factor in raising food prices?"),
+            h3("The Issue"),
+            p("There are varying levels of doubt about
+            the effects or even existence of climate
+            change. A typical counterpoint against
+            climate change legislation is the fact that
+            it limits industry, and by extension, the many
+            affected by industry growth. However, these same
+            people could suffer effects far outweighing those
+            of industry limitation in the near future, yet
+            the legitimacy of these effects is still struggling
+            to be recognized in legislation.")
+            )
         )
-    )
 )
 
-# Define server logic required to draw a histogram
+page_two <- tabPanel(
+            "Problem Situation",
+            sidebarLayout(
+              sidebarPanel(
+                #stuff goes here
+              ),
+              mainPanel(
+                  #stuff
+              )
+            )
+        )
+        
+page_three <- tabPanel(
+            "Data Critique",
+            sidebarLayout(
+                sidebarPanel(
+                    #stuff here
+                ),
+                mainPanel(
+                    #stuff here
+                )
+            )
+        )
+        
+page_four <- tabPanel(
+            "Visualization",
+            sidebarLayout(
+                sidebarPanel(
+                    #stuff here
+                ),
+                mainPanel(
+                    #stuff here
+                )
+            )
+        )
+        
+page_five <- tabPanel(
+            "Further Inquiry",
+            sidebarLayout(
+                sidebarPanel(
+                    #stuff here
+                ),
+                mainPanel(
+                    #stuff here
+                )
+            )
+        )
+        
+page_six <- tabPanel(
+            "Sixth Page",
+            sidebarLayout(
+                sidebarPanel(
+                    #stuff here
+                ),
+                mainPanel(
+                    #stuff here
+                )
+            )
+        )
+
+ui <- navbarPage(
+            "Stage 2",
+            page_one,
+            page_two,
+            page_three,
+            page_four, 
+            page_five,
+            page_six
+        )
+        
 server <- function(input, output) {
+            
+        }
 
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    })
-}
-
-# Run the application 
 shinyApp(ui = ui, server = server)
+
+
+
+
