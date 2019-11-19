@@ -1,5 +1,5 @@
-#P2 Analysis for Shiny App
 
+#P2 Analysis for Shiny App
 
 #Download Libraries
 library(dplyr)
@@ -97,6 +97,7 @@ Delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
 print(Delhi_plot)
 
 
+<<<<<<< HEAD
 #Delhi and wheat
 Delhi_wheat <- data_and_plot("Delhi", "Wheat")
 print(Delhi_wheat)
@@ -108,3 +109,6 @@ Delhi_foods <- food_prices %>%
 
 Delhi_foods_u <- unique(Delhi_foods$cm_name)
 View(Delhi_foods_u)
+=======
+
+>>>>>>> 441fd7df0d65e8bc9bcddae248bd0d8d1d6cbaff
