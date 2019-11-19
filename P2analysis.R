@@ -1,6 +1,7 @@
 #P2 Analysis for Shiny App
 
 
+<<<<<<< HEAD
 #Download Libraries
 library(dplyr)
 library(ggplot2)
@@ -91,3 +92,5 @@ print(Lima_plot)
 #Delhi and mustard oil
 Delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
 print(Delhi_plot)
+=======
+>>>>>>> 7c3c2f70b3114a129246406fe0725d5b46ef26c8
