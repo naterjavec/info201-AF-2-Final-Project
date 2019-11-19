@@ -9,17 +9,13 @@
 
 library(shiny)
 
-
-
-# Define UI for application that draws a histogram
-ui <- fluidPage(
-
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
-    # Sidebar with a slider input for number of bins 
+page_one <- tabPanel(
+    "About",
+    titlePanel("About"),
     sidebarLayout(
-        sidebarPanel("The stakeholders within this situation are the people
+        sidebarPanel(
+        h4("Who Cares"),
+        p("The stakeholders within this situation are the people
 who food prices are relevant to - those who have their
 quality of life or even survival fluctuate with food
 prices. The opposite stakeholders would be industries
@@ -27,83 +23,103 @@ that affect those prices. Their values and quality of
 life over profitability may be in direct contrast with
 each other. It is the policymakers’ task to determine
 whether limiting industries or risking people’s livelihood
-are the beneficial choices for their constituency."),
+are the beneficial choices for their constituency.")),
         mainPanel(
-            h3("Primary Content"),
-            p("Plots, data tables, etc. would go here")
+            h3("Ask Yourself..."),
+            h4("Is the price of food in major cities affected
+            by global temperatures?"),
+            h4("Will climate change be a factor in raising food prices?"),
+            h3("The Issue"),
+            p("There are varying levels of doubt about
+            the effects or even existence of climate
+            change. A typical counterpoint against
+            climate change legislation is the fact that
+            it limits industry, and by extension, the many
+            affected by industry growth. However, these same
+            people could suffer effects far outweighing those
+            of industry limitation in the near future, yet
+            the legitimacy of these effects is still struggling
+            to be recognized in legislation.")
+            )
         )
-    )
 )
 
-# Define the first page content; uses `tabPanel()` and `sidebarLayout()`
-# layout functions together (as an example)
-page_one <- tabPanel(
-    "First Page", # label for the tab in the navbar
-    titlePanel("Page 1"), # show with a displayed title
-    
-    # This content uses a sidebar layout
-    sidebarLayout(
-        sidebarPanel(
-            textInput(inputId = "username", label = "What is your name?")
-        ),
-
-# Define content for the second page
 page_two <- tabPanel(
-    "Second Page" # label for the tab in the navbar
-    # ...more content would go here...
-)
-
-# Define content for the third page
+            "Second Page",
+            sidebarLayout(
+              sidebarPanel(
+                #stuff goes here
+              ),
+              mainPanel(
+                  #stuff
+              )
+            )
+        )
+        
 page_three <- tabPanel(
-    "Third Page" # label for the tab in the navbar
-    # ...more content would go here...
-)
-
+            "Third Page",
+            sidebarLayout(
+                sidebarPanel(
+                    #stuff here
+                ),
+                mainPanel(
+                    #stuff here
+                )
+            )
+        )
+        
 page_four <- tabPanel(
-    "Fourth Page" # label for the tab in the navbar
-    # ...more content would go here...
-)
-
+            "Fourth Page",
+            sidebarLayout(
+                sidebarPanel(
+                    #stuff here
+                ),
+                mainPanel(
+                    #stuff here
+                )
+            )
+        )
+        
 page_five <- tabPanel(
-    "5th Page" # label for the tab in the navbar
-    # ...more content would go here...
-)
-
+            "Fifth Page",
+            sidebarLayout(
+                sidebarPanel(
+                    #stuff here
+                ),
+                mainPanel(
+                    #stuff here
+                )
+            )
+        )
+        
 page_six <- tabPanel(
-    "Sixth Page" # label for the tab in the navbar
-    # ...more content would go here...
-)
-# Pass each page to a multi-page layout (`navbarPage`)
+            "Sixth Page",
+            sidebarLayout(
+                sidebarPanel(
+                    #stuff here
+                ),
+                mainPanel(
+                    #stuff here
+                )
+            )
+        )
+
 ui <- navbarPage(
-    "My Application", # application title
-    page_one,         # include the first page content
-    page_two,         # include the second page content
-    page_three,
-    page_four, 
-    page_five,
-    page_six          # include the third page content
-)
-
-# Define server logic 
+            "My Application",
+            page_one,
+            page_two,
+            page_three,
+            page_four, 
+            page_five,
+            page_six
+        )
+        
 server <- function(input, output) {
+            
+        }
 
-
-}
-=======
-# Define server logic required to draw a histogram
-# server <- function(input, output) {
-# 
-#     output$distPlot <- renderPlot({
-#         # generate bins based on input$bins from ui.R
-#         x    <- faithful[, 2]
-#         bins <- seq(min(x), max(x), length.out = input$bins + 1)
-# 
-#         # draw the histogram with the specified number of bins
-#         hist(x, breaks = bins, col = 'darkgray', border = 'white')
-#     })
-# }
-
-
-# Run the application 
 shinyApp(ui = ui, server = server)
+
+
+
 
