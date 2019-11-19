@@ -17,6 +17,8 @@ global_temp <- read.csv("data/GlobalLandTemperaturesByMajorCity.csv")
 cities_temp <- unique(global_temp$City)
 cities_food <- unique(food_prices$adm1_name)
 
+View(cities_temp)
+
 
 #Select from list of cities in both datasets
 cities_list <- intersect(cities_food, cities_temp)
@@ -62,12 +64,14 @@ merge_data <- function(df1, df2){
 }
 
 
-#This is awful
-p <- plot_ly(Lima_data, x = ~AverageTemperature, y = ~mp_price, type = 'scatter', mode = 'lines')
 
-print(p)
-
-#Thoughts?
+#Fix best fit line, just connecting top - not regression
+scatter_plot <- function(df){
+  return(plot_ly(df, x = ~date, y = ~AverageTemperature, name = 'Average Temperature',
+                 type = 'scatter') %>%
+           add_trace(y = ~mp_price, name = 'Maket Price') %>%
+           add_lines(x = ~date, y = fitted(~mp_price)))
+}
 
 line_plot <- function(df){
   return(plot_ly(df, x = ~date, y = ~AverageTemperature, name = 'Average Temperature',
@@ -92,5 +96,28 @@ print(Lima_plot)
 Delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
 print(Delhi_plot)
 
+
+
+#Delhi and wheat
+Delhi_wheat <- data_and_plot("Delhi", "Wheat")
+print(Delhi_wheat)
+
+
+#Unique Delhi Foods
+Delhi_foods <- food_prices %>%
+  filter(adm1_name == "Delhi")
+
+Delhi_foods_u <- unique(Delhi_foods$cm_name)
+View(Delhi_foods_u)
+
+
+
+
+# App server stuff - have it do it for every 
+# have a couple cities, have the options for mutliple different foods for each city
+# two different y axis? one with Degrees Celsius and one with market price / KG
+
+# percent change for both market price of food and temp
+# Do this based on the same month of 2006 to 2013 (i.e. March)
 
 

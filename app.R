@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+source("P2analysis.R")
 
 page_one <- tabPanel(
     "About",
@@ -53,6 +54,7 @@ page_two <- tabPanel(
                 #stuff goes here
               ),
               mainPanel(
+                  data_and_plot("Delhi", "Wheat")
                   #graph
               )
             )
