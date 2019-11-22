@@ -5,9 +5,6 @@
 library(dplyr)
 library(ggplot2)
 library(plotly)
-library(lintr)
-lint("P2analysis.R")
-
 
 #Download data sets as variables
 food_prices <- read.csv("data/wfp_market_food_prices.csv")
@@ -19,12 +16,10 @@ global_temp <- read.csv("data/GlobalLandTemperaturesByMajorCity.csv")
 cities_temp <- unique(global_temp$City)
 cities_food <- unique(food_prices$adm1_name)
 
-View(cities_temp)
-
 
 #Select from list of cities in both datasets
 cities_list <- intersect(cities_food, cities_temp)
-View(cities_list)
+
 
 
 
@@ -95,26 +90,25 @@ data_and_plot <- function(city, food){
 
 #Lima And Maize tests
 lima_plot <- data_and_plot("Lima", "Maize (local)")
-print(Lima_plot)
+
 
 
 #Delhi and mustard oil
 delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
-print(Delhi_plot)
+
 
 
 
 #Delhi and wheat
 delhi_wheat <- data_and_plot("Delhi", "Wheat")
-print(Delhi_wheat)
+
 
 
 #Unique Delhi Foods
 delhi_foods <- food_prices %>%
   filter(adm1_name == "Delhi")
 
-delhi_foods_u <- unique(Delhi_foods$cm_name)
-View(delhi_foods_u)
+delhi_foods_u <- unique(delhi_foods$cm_name)
 
 
 
