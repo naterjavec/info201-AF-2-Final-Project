@@ -5,6 +5,8 @@
 library(dplyr)
 library(ggplot2)
 library(plotly)
+library(lintr)
+lint("P2analysis.R")
 
 
 #Download data sets as variables
@@ -33,7 +35,7 @@ View(cities_list)
 #filters to city and food of choice then selects relevant columns
 #excludes data points from after 2013 so it wil correspond with
 #temperature data
-city_food_data <- function(city, food){
+city_food_data <- function(city, food) {
   food_data <- food_prices %>%
     filter(adm1_name == city,
            cm_name == food,
@@ -47,11 +49,12 @@ city_food_data <- function(city, food){
 #To make sure we show data that we have collected for both years
 #This function includes filtering years > 2006 then selects
 #only the columns needed for the Info Vis
-city_temp_data <- function(city){
+city_temp_data <- function(city) {
   temp <- global_temp %>%
     filter(City == city) %>%
     mutate(year = as.numeric(substring(dt, 1, 4))) %>%
-    mutate(date = paste(year, "-", as.numeric(substring(dt, 6, 7)), sep = "")) %>%
+    mutate(date = paste(year, "-", as.numeric
+                        (substring(dt, 6, 7)), sep = "")) %>%
     filter(year > 2005) %>%
     select(date, AverageTemperature)
   return(temp)
@@ -59,26 +62,29 @@ city_temp_data <- function(city){
 
 
 #Method to merge the two data sets into one for plot
-merge_data <- function(df1, df2){
+merge_data <- function(df1, df2) {
   return(merge(df1, df2, by = "date"))
 }
 
 
 
 #Fix best fit line, just connecting top - not regression
-scatter_plot <- function(df){
-  return(plot_ly(df, x = ~date, y = ~AverageTemperature, name = 'Average Temperature',
-                 type = 'scatter') %>%
-           add_trace(y = ~mp_price, name = 'Maket Price') %>%
+scatter_plot <- function(df) {
+  return(plot_ly(df, x = ~date, y = ~AverageTemperature,
+                 name = "Average Temperature",
+                 type = "scatter") %>%
+           add_trace(y = ~mp_price, name = "Market Price") %>%
            add_lines(x = ~date, y = fitted(~mp_price)))
 }
 
-line_plot <- function(df){
-  return(plot_ly(df, x = ~date, y = ~AverageTemperature, name = 'Average Temperature',
-                 type = 'scatter', mode = 'lines',
-                 line = list(color = 'rgb(205, 12, 24)', width = 4)) %>%
-           add_trace(y = ~mp_price, name = 'Maket Price',
-                     line = list(color = 'rgb(22, 96, 167)', width = 4)))
+line_plot <- function(df) {
+  return(plot_ly(df, x = ~date, y = ~AverageTemperature,
+                 name = "Average Temperature",
+                 type = "scatter", mode = "lines",
+                 line = list(color = "rgb(205, 12, 24)", width = 4)) %>%
+           add_trace(y = ~mp_price, name = "Market Price",
+                     line = list(color = 'rgb(22, 96, 167)',
+                                 width = 4)))
 }
 
 data_and_plot <- function(city, food){
@@ -88,27 +94,27 @@ data_and_plot <- function(city, food){
 
 
 #Lima And Maize tests
-Lima_plot <- data_and_plot("Lima", "Maize (local)")
+lima_plot <- data_and_plot("Lima", "Maize (local)")
 print(Lima_plot)
 
 
 #Delhi and mustard oil
-Delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
+delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
 print(Delhi_plot)
 
 
 
 #Delhi and wheat
-Delhi_wheat <- data_and_plot("Delhi", "Wheat")
+delhi_wheat <- data_and_plot("Delhi", "Wheat")
 print(Delhi_wheat)
 
 
 #Unique Delhi Foods
-Delhi_foods <- food_prices %>%
+delhi_foods <- food_prices %>%
   filter(adm1_name == "Delhi")
 
-Delhi_foods_u <- unique(Delhi_foods$cm_name)
-View(Delhi_foods_u)
+delhi_foods_u <- unique(Delhi_foods$cm_name)
+View(delhi_foods_u)
 
 
 
