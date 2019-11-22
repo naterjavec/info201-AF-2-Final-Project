@@ -6,7 +6,6 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(lintr)
-lint("P2analysis.R")
 
 
 #Download data sets as variables
