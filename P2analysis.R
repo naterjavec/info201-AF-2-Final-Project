@@ -78,11 +78,11 @@ line_plot <- function(df) {
                  type = "scatter", mode = "lines",
                  line = list(color = "rgb(205, 12, 24)", width = 4)) %>%
            add_trace(y = ~mp_price, name = "Market Price",
-                     line = list(color = 'rgb(22, 96, 167)',
+                     line = list(color = "rgb(22, 96, 167)",
                                  width = 4)))
 }
 
-data_and_plot <- function(city, food){
+data_and_plot <- function(city, food) {
   city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
   return(line_plot(city_data))
 }
@@ -113,8 +113,8 @@ delhi_foods_u <- unique(delhi_foods$cm_name)
 
 
 
-# App server stuff - have it do it for every 
-# have a couple cities, have the options for mutliple different foods for each city
+# App server stuff - have it do it for every have a couple cities, have the 
+# options for mutliple different foods for each city
 # two different y axis? one with Degrees Celsius and one with market price / KG
 
 # percent change for both market price of food and temp
