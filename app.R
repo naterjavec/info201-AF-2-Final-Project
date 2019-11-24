@@ -10,6 +10,7 @@
 library(shiny)
 library(plotly)
 source("P2analysis.R")
+library("ggplot2")
 
 #First page, describes the project.
 page_one <- tabPanel(
@@ -96,15 +97,15 @@ page_three <- tabPanel(
 page_four <- tabPanel(
             "Visualization",
             sidebarLayout(
-                sidebarPanel(
-                    #Commentary on visualization
-                ),
+                sidebarPanel(#Commentary on visualization
+                    selectInput("city", "Choose a City:",
+                                choices = c("Dehli", "other cities here"))),
                 mainPanel(
                     data_and_plot("Delhi", "Wheat")
                     #graph
                 )
             )
-        )
+)
         
 page_five <- tabPanel(
             "Further Inquiry",
