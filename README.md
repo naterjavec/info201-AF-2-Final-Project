@@ -6,3 +6,6 @@ Nataile Erj, Ethan Hu, Tyler Su, and Sierrra McKissick
 Proposal: https://github.com/naterjavec/info201-AF-2-Final-Project/wiki
 
 Technical Report: https://github.com/naterjavec/info201-AF-2-Final-Project/wiki/Technical-Report
+
+App Deployment: https://ethanhu.shinyapps.io/info201-AF-2-Final-Project/
+
