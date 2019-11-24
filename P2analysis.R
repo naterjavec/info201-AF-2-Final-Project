@@ -6,7 +6,6 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 
-
 #Download data sets as variables
 food_prices <- read.csv("data/wfp_market_food_prices.csv")
 global_temp <- read.csv("data/GlobalLandTemperaturesByMajorCity.csv")
@@ -20,7 +19,7 @@ cities_food <- unique(food_prices$adm1_name)
 
 #Select from list of cities in both datasets
 cities_list <- intersect(cities_food, cities_temp)
-View(cities_list)
+
 
 
 
@@ -31,7 +30,7 @@ View(cities_list)
 #filters to city and food of choice then selects relevant columns
 #excludes data points from after 2013 so it wil correspond with
 #temperature data
-city_food_data <- function(city, food){
+city_food_data <- function(city, food) {
   food_data <- food_prices %>%
     filter(adm1_name == city,
            cm_name == food,
@@ -45,11 +44,12 @@ city_food_data <- function(city, food){
 #To make sure we show data that we have collected for both years
 #This function includes filtering years > 2006 then selects
 #only the columns needed for the Info Vis
-city_temp_data <- function(city){
+city_temp_data <- function(city) {
   temp <- global_temp %>%
     filter(City == city) %>%
     mutate(year = as.numeric(substring(dt, 1, 4))) %>%
-    mutate(date = paste(year, "-", as.numeric(substring(dt, 6, 7)), sep = "")) %>%
+    mutate(date = paste(year, "-", as.numeric
+                        (substring(dt, 6, 7)), sep = "")) %>%
     filter(year > 2005) %>%
     select(date, AverageTemperature)
   return(temp)
@@ -57,24 +57,29 @@ city_temp_data <- function(city){
 
 
 #Method to merge the two data sets into one for plot
-merge_data <- function(df1, df2){
+merge_data <- function(df1, df2) {
   return(merge(df1, df2, by = "date"))
 }
 
 
-#This is awful
-p <- plot_ly(Lima_data, x = ~AverageTemperature, y = ~mp_price, type = 'scatter', mode = 'lines')
 
-print(p)
+#Fix best fit line, just connecting top - not regression
+scatter_plot <- function(df) {
+  return(plot_ly(df, x = ~date, y = ~AverageTemperature,
+                 name = "Average Temperature",
+                 type = "scatter") %>%
+           add_trace(y = ~mp_price, name = "Market Price") %>%
+           add_lines(x = ~date, y = fitted(~mp_price)))
+}
 
-#Thoughts?
-
-line_plot <- function(df){
-  return(plot_ly(df, x = ~date, y = ~AverageTemperature, name = 'Average Temperature',
-                 type = 'scatter', mode = 'lines',
-                 line = list(color = 'rgb(205, 12, 24)', width = 4)) %>%
-           add_trace(y = ~mp_price, name = 'Maket Price',
-                     line = list(color = 'rgb(22, 96, 167)', width = 4)))
+line_plot <- function(df) {
+  return(plot_ly(df, x = ~date, y = ~AverageTemperature,
+                 name = "Average Temperature",
+                 type = "scatter", mode = "lines",
+                 line = list(color = "rgb(205, 12, 24)", width = 4)) %>%
+           add_trace(y = ~mp_price, name = "Market Price",
+                     line = list(color = 'rgb(22, 96, 167)',
+                                 width = 4)))
 }
 
 data_and_plot <- function(city, food){
@@ -84,13 +89,35 @@ data_and_plot <- function(city, food){
 
 
 #Lima And Maize tests
-Lima_plot <- data_and_plot("Lima", "Maize (local)")
-print(Lima_plot)
+lima_plot <- data_and_plot("Lima", "Maize (local)")
+
 
 
 #Delhi and mustard oil
-Delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
-print(Delhi_plot)
+delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
 
+
+
+
+#Delhi and wheat
+delhi_wheat <- data_and_plot("Delhi", "Wheat")
+
+
+
+#Unique Delhi Foods
+delhi_foods <- food_prices %>%
+  filter(adm1_name == "Delhi")
+
+delhi_foods_u <- unique(delhi_foods$cm_name)
+
+
+
+
+# App server stuff - have it do it for every 
+# have a couple cities, have the options for mutliple different foods for each city
+# two different y axis? one with Degrees Celsius and one with market price / KG
+
+# percent change for both market price of food and temp
+# Do this based on the same month of 2006 to 2013 (i.e. March)
 
 
