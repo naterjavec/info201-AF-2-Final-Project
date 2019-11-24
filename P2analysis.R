@@ -75,25 +75,34 @@ View(example)
 scatter_plot <- function(df){
   return(plot_ly(df, x = ~date, y = ~AverageTemperature, name = 'Average Temperature',
                  type = 'scatter') %>%
-           add_trace(y = ~mp_price, name = 'Maket Price') %>%
+           add_trace(y = ~mp_price, name = 'Market Price') %>%
            add_lines(x = ~date, y = fitted(~mp_price)))
 }
 
 
 #working fine but not preferable
-line_plot <- function(df){
+
+#TO DO: make into scatterplot with regression lines
+#Change x and y axis titles
+#Add title that changes with city and food?
+line_plot <- function(df, city, food){
+  title <- paste(food, "in", city, "Over Time")
   return(plot_ly(df, x = ~date, y = ~AverageTemperature, name = 'Average Temperature',
                  type = 'scatter', mode = 'lines',
                  line = list(color = 'rgb(205, 12, 24)', width = 4)) %>%
-           add_trace(y = ~mp_price, name = 'Maket Price',
-                     line = list(color = 'rgb(22, 96, 167)', width = 4)))
+           add_trace(y = ~mp_price, name = 'Market Price',
+                     line = list(color = 'rgb(22, 96, 167)', width = 4)) %>%
+           layout(title = title,
+                  xaxis = list(title = "Date"),
+                  yaxis = list(title = "Price (local currnecy) and Average Temperature (*C)")))
+
 }
 
 
 #takes in city and food and returns information as plot
 data_and_plot <- function(city, food){
   city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
-  return(line_plot(city_data))
+  return(line_plot(city_data, city, food))
 }
 
 #Tests and Plots
@@ -127,7 +136,7 @@ delhi_foods_u <- unique(delhi_foods$cm_name)
 # from 2006 to 2012 so that the data is consistent from beginning year to end. Then,
 # the difference of the two temperatures is calculated and divided by the Temp in
 # October of 2006 to get a percent change between the two years. The percent change is
-# aqdded to the data set
+# added to the data set
 
 temp_w_percent <- global_temp %>%
   mutate(month = substring(dt, 6, 7),
@@ -189,10 +198,7 @@ print(create_bar_chart("Oil"))
 # App server stuff - have it do it for every 
 # have a couple cities, have the options for mutliple different foods for each city
 # two different y axis? one with Degrees Celsius and one with market price / KG
-#Sierra ^^
-
-# percent change for both market price of food and temp
-# Do this based on the same month of 2006 to 2013 (i.e. March)
+# Sierra ^^
 
 # heat map 
 # using original data sets of both with longitude and lat
