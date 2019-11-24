@@ -44,8 +44,10 @@ are the beneficial choices for their constituency.")),
             of industry limitation in the near future, yet
             the legitimacy of these effects is still struggling
             to be recognized in legislation."),
-            h3(#add hyperlinks to datasets here
-                )
+            h3("Data Sets:"),
+            h4("https://www.kaggle.com/berkeleyearth/climate-change
+               -earth-surface-temperature-data"),
+            h4("https://www.kaggle.com/jboysen/global-food-prices")
             )
         )
 )
