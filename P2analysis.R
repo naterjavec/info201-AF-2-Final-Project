@@ -5,6 +5,7 @@
 library(dplyr)
 library(ggplot2)
 library(plotly)
+library(data.table)
 
 #Download data sets as variables
 food_prices <- read.csv("data/wfp_market_food_prices.csv")
@@ -123,6 +124,13 @@ delhi_foods_u <- unique(delhi_foods$cm_name)
 
 #---------------------- adding percent changes--------------------------
 
+
+# Mutating the temperature data set so that it contains only the month of October
+# from 2006 to 2012 so that the data is consistent from beginning year to end. Then,
+# the difference of the two temperatures is calculated and divided by the Temp in
+# October of 2006 to get a percent change between the two years. The percent change is
+# aqdded to the data set
+
 temp_w_percent <- global_temp %>%
   mutate(month = substring(dt, 6, 7),
          year = as.numeric(substring(dt, 1, 4))) %>%
@@ -135,38 +143,50 @@ temp_w_percent <- global_temp %>%
   select(City, Country, percent_change)
 
 
+
+# Mutating the food data set so that it contains only the month of October
+# from 2006 to 2014 (most cities did not have data for 2012). The difference of 
+# the two prices for each food is calculated and divided by the price in
+# October of 2006 to get a percent change between the two years. The percent change is
+# added to the data set
+
 food_change<- food_prices %>%
   filter(mp_month == 10) %>%
   group_by(adm1_name, cm_name) %>%
-  filter(mp_year == max(mp_year) | mp_year == min(mp_year)) %>%
+  filter(mp_year == 2006 | mp_year == 2014) %>%
   mutate(price_change = mp_price - lag(mp_price, default = mp_price[1]),
          City = adm1_name) %>%
   mutate(food_percent = price_change / lag(mp_price, default = mp_price[1]) * 100) %>%
   filter(price_change != 0) %>%
-  select(City, adm0_name, adm1_name, cm_name, food_percent)
+  select(City, adm0_name, adm1_name, cm_name, food_percent, mp_month, mp_year)
 
 
+#Data with percent changes for both food and temperature
 percent_change <- merge(food_change, temp_w_percent, by = "City")
 
-  
-ggplot(percent_change, aes(fill = food_percent, y = percent_change, x = City)) + 
-  geom_bar(position="stack", stat="identity")
 
 
 #Function to create bar plot based on specific foods
 #Returns barchart with any city that has data about the food parameter entered 
 create_bar_chart <- function(food){
-  specific_data <- percent_change %>%
-    filter(cm_name == food)
-  return(ggplot(specific_data, aes(fill = food_percent, y = percent_change, x = City)) + 
-           geom_bar(position="stack", stat="identity"))
+  specific_data <- percent_change[percent_change$cm_name %like% food, ]
+  return(plot_ly(specific_data, x = ~City, y = ~percent_change, type = 'bar', name = 'Temperature Percent Change') %>%
+           add_trace(y = ~food_percent, name = 'Food Price Percent Change') %>%
+           layout(yaxis = list(title = 'Percent')))
 }
 
 
-print(create_bar_chart("Wheat flour"))
 
-#Wheat, Rice, Sugar, Rice (local), Lentils, Maize (local), Bread, Wheat flour
+#Bar chart tests
 
+#Rice tests
+print(create_bar_chart("Rice"))
+
+#Wheat test
+print(create_bar_chart("Oil"))
+
+#Foods that are best for shiny app:
+#Oil, Rice, Wheat, Sugar, Lentils, Maize, Bread
 
 # App server stuff - have it do it for every have a couple cities, have the 
 # options for mutliple different foods for each city
