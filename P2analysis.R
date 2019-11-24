@@ -140,7 +140,7 @@ temp_w_percent <- global_temp %>%
   mutate(change = AverageTemperature - lag(AverageTemperature, default = AverageTemperature[1])) %>%
   mutate(percent_change = change / lag(AverageTemperature, default = AverageTemperature[1]) * 100) %>%
   filter(percent_change != 0) %>%
-  select(City, Country, percent_change)
+  select(City, Country, percent_change, Longitude, Latitude)
 
 
 
