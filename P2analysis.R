@@ -12,11 +12,11 @@ food_prices <- read.csv("data/wfp_market_food_prices.csv")
 global_temp <- read.csv("data/GlobalLandTemperaturesByMajorCity.csv")
 
 
-#See what unique major cities are in the data set to choose from
+#----------------------General Data Analysis--------------------------
 
+#See what unique major cities are in the data set to choose from
 cities_temp <- unique(global_temp$City)
 cities_food <- unique(food_prices$adm1_name)
-
 
 
 #Select from list of cities in both datasets
@@ -24,7 +24,7 @@ cities_list <- intersect(cities_food, cities_temp)
 
 
 
-
+#----------------------Creating Line / Scatter Plot--------------------------
 
 #Methods for filtering data to city of choice
 #Used methods so city or food can be esily manipulated
@@ -105,9 +105,9 @@ data_and_plot <- function(city, food){
   return(line_plot(city_data, city, food))
 }
 
+
+
 #Tests and Plots
-
-
 
 #Lima And Maize plot
 Lima_plot <- data_and_plot("Lima", "Maize (local)")
@@ -128,6 +128,7 @@ delhi_foods <- food_prices %>%
   filter(adm1_name == "Delhi")
 
 delhi_foods_u <- unique(delhi_foods$cm_name)
+
 
 #---------------------- adding percent changes--------------------------
 
@@ -172,13 +173,20 @@ food_change<- food_prices %>%
 percent_change <- merge(food_change, temp_w_percent, by = "City")
 
 
+#----------------------Bar Graph With Percent Change--------------------------
 
 #Function to create bar plot based on specific foods
-#Returns barchart with any city that has data about the food parameter entered 
+#Returns barchart with any city that has data about the food parameter entered
+# includes "like" function so that similar foods will be included in graph
 create_bar_chart <- function(food){
   specific_data <- percent_change[percent_change$cm_name %like% food, ]
-  return(plot_ly(specific_data, x = ~City, y = ~percent_change, type = 'bar', name = 'Temperature Percent Change') %>%
-           add_trace(y = ~food_percent, name = 'Food Price Percent Change') %>%
+  return(plot_ly(specific_data,
+                 x = ~City,
+                 y = ~percent_change,
+                 type = 'bar',
+                 name = 'Temperature Percent Change') %>%
+           add_trace(y = ~food_percent,
+                     name = 'Food Price Percent Change') %>%
            layout(yaxis = list(title = 'Percent')))
 }
 
@@ -194,6 +202,15 @@ print(create_bar_chart("Oil"))
 
 #Foods that are best for shiny app:
 #Oil, Rice, Wheat, Sugar, Lentils, Maize, Bread
+
+#----------------------Global Temp Heat Map (w/ Percent Change)--------------------------
+
+
+
+
+
+
+#----------------------To Do--------------------------
 
 # App server stuff - have it do it for every 
 # have a couple cities, have the options for mutliple different foods for each city
