@@ -80,14 +80,17 @@ scatter_plot <- function(df){
 }
 
 
+
 #working fine but not preferable
+
 
 #TO DO: make into scatterplot with regression lines
 #Change x and y axis titles
 #Add title that changes with city and food?
 line_plot <- function(df, city, food){
   title <- paste(food, "in", city, "Over Time")
-  return(plot_ly(df, x = ~date, y = ~AverageTemperature, name = 'Average Temperature',
+  return(plot_ly(df, x = ~date, y = ~AverageTemperature,
+                 name = 'Average Temperature',
                  type = 'scatter', mode = 'lines',
                  line = list(color = 'rgb(205, 12, 24)', width = 4)) %>%
            add_trace(y = ~mp_price, name = 'Market Price',
@@ -203,6 +206,7 @@ print(create_bar_chart("Oil"))
 #Foods that are best for shiny app:
 #Oil, Rice, Wheat, Sugar, Lentils, Maize, Bread
 
+<<<<<<< HEAD
 #----------------------Global Temp Heat Map (w/ Percent Change)--------------------------
 
 
@@ -214,6 +218,10 @@ print(create_bar_chart("Oil"))
 
 # App server stuff - have it do it for every 
 # have a couple cities, have the options for mutliple different foods for each city
+=======
+# App server stuff - have it do it for every have a couple cities, have the 
+# options for mutliple different foods for each city
+>>>>>>> 60f8d3e33680d10441405b0ac522b58a0906d781
 # two different y axis? one with Degrees Celsius and one with market price / KG
 # Sierra ^^
 
