@@ -8,8 +8,11 @@
 #
 
 library(shiny)
+library(plotly)
 source("P2analysis.R")
+library("ggplot2")
 
+#First page, describes the project.
 page_one <- tabPanel(
     "About",
     titlePanel("About"),
@@ -51,11 +54,21 @@ page_two <- tabPanel(
             "Problem Situation",
             sidebarLayout(
               sidebarPanel(
-                #stuff goes here
+                #From Project Proposal
               ),
               mainPanel(
-                  data_and_plot("Delhi", "Wheat")
-                  #graph
+                  p("If the scope of climate change extends to food prices, 
+                    then many countries will find themselves at an extreme
+                    disadvantage in the global market, and citizens of
+                    those countries that depend on their natural resources
+                    for food could go hungry, heavily increasing the need 
+                    for a solution to world hunger. While it is already 
+                    prevalent in the United States that a discrepancy
+                    exists between reasonably priced food and its quality,
+                    this change would create yet another opportunity for
+                    companies to wedge a gap between the upper class and
+                    the middle and lower class, creating more divide than 
+                    our nation already faces."),  
               )
             )
         )
@@ -64,10 +77,19 @@ page_three <- tabPanel(
             "Data Critique",
             sidebarLayout(
                 sidebarPanel(
-                    #stuff here
+                    #Strengths and weaknesses from project proposal
                 ),
                 mainPanel(
-                    #stuff here
+                    p("A strength is that both data sets are comprehensive,
+                    with very little missing values. 
+                    The columns they do have are very consistent in their values.
+                    A weakness is that cities are the only locations considered,
+                    showcasing the impact of this global phenomenon for only a certain
+                    group of people. The cities included in these data sets also must
+                    overlap, otherwise no trend between temperature and price can be
+                    made. In addition, climate change is a slow process, and our 
+                    specific data set for food prices spans many locations but
+                    only dates about a decade back.")
                 )
             )
         )
@@ -75,38 +97,49 @@ page_three <- tabPanel(
 page_four <- tabPanel(
             "Visualization",
             sidebarLayout(
-                sidebarPanel(
-                    #stuff here
-                ),
+                sidebarPanel(#Commentary on visualization
+                    selectInput("city", "Choose a City:",
+                                choices = c("Dehli", "other cities here"))),
                 mainPanel(
-                    #stuff here
+                    data_and_plot("Delhi", "Wheat")
+                    #graph
                 )
             )
-        )
+)
         
 page_five <- tabPanel(
             "Further Inquiry",
             sidebarLayout(
                 sidebarPanel(
-                    #stuff here
+                    #Analysis on results and further questions.
                 ),
                 mainPanel(
-                    #stuff here
+                    p("In the project, we found ourselves wanting to
+                      compare many different types of crops in order 
+                      to get a better picture of the effects of 
+                      climate change, however, were unable to do
+                      so because of time constraints. In addition,
+                      comparing different times of the year, as 
+                      opposed to solely June 1st of each year, would
+                      have also provided us with more credibility.
+                      At the same time, we believe that our
+                      consistency among variables such as time
+                      of year and crop are what makes the project
+                      reliable and appeals to the ease of
+                      readability for the user. From this, 
+                      we learned how to apply Shiny to real-world 
+                      scenarios and get results. From here, one
+                      may want to pursue using a different data
+                      set for food prices that goes back further
+                      in time and provide more cities in Europe 
+                      and North America in order to see a more
+                      accurate trend.")
+                    
                 )
             )
         )
         
-page_six <- tabPanel(
-            "Sixth Page",
-            sidebarLayout(
-                sidebarPanel(
-                    #stuff here
-                ),
-                mainPanel(
-                    #stuff here
-                )
-            )
-        )
+
 
 ui <- navbarPage(
             "The Effect of Climate Change on Food Prices",
@@ -114,8 +147,7 @@ ui <- navbarPage(
             page_two,
             page_three,
             page_four, 
-            page_five,
-            page_six
+            page_five
         )
         
 server <- function(input, output) {

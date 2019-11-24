@@ -7,7 +7,6 @@ library(ggplot2)
 library(plotly)
 library(data.table)
 
-
 #Download data sets as variables
 food_prices <- read.csv("data/wfp_market_food_prices.csv")
 global_temp <- read.csv("data/GlobalLandTemperaturesByMajorCity.csv")
@@ -25,6 +24,8 @@ cities_list <- intersect(cities_food, cities_temp)
 
 
 
+
+
 #Methods for filtering data to city of choice
 #Used methods so city or food can be esily manipulated
 
@@ -32,7 +33,7 @@ cities_list <- intersect(cities_food, cities_temp)
 #filters to city and food of choice then selects relevant columns
 #excludes data points from after 2013 so it wil correspond with
 #temperature data
-city_food_data <- function(city, food){
+city_food_data <- function(city, food) {
   food_data <- food_prices %>%
     filter(adm1_name == city,
            cm_name == food,
@@ -47,18 +48,19 @@ city_food_data <- function(city, food){
 #To make sure we show data that we have collected for both years
 #This function includes filtering years > 2006 then selects
 #only the columns needed for the Info Vis
-city_temp_data <- function(city){
+city_temp_data <- function(city) {
   temp <- global_temp %>%
     filter(City == city) %>%
     mutate(year = as.numeric(substring(dt, 1, 4))) %>%
-    mutate(date = paste(year, "-", as.numeric(substring(dt, 6, 7)), sep = "")) %>%
+    mutate(date = paste(year, "-", as.numeric
+                        (substring(dt, 6, 7)), sep = "")) %>%
     filter(year > 2005) %>%
     select(date, AverageTemperature)
   return(temp)
 }
 
 #Method to merge the two data sets into one for plot
-merge_data <- function(df1, df2){
+merge_data <- function(df1, df2) {
   return(merge(df1, df2, by = "date"))
 }
 
@@ -66,6 +68,7 @@ merge_data <- function(df1, df2){
 #Merge isnt working - Ethan will fix dates
 example <- merge_data(city_food_data("Delhi", "Wheat"), city_temp_data("Delhi"))
 View(example)
+
 
 
 #Fix best fit line, rn just connecting top - not regression
@@ -96,6 +99,7 @@ data_and_plot <- function(city, food){
 #Tests and Plots
 
 
+
 #Lima And Maize plot
 Lima_plot <- data_and_plot("Lima", "Maize (local)")
 print(Lima_plot)
@@ -111,11 +115,10 @@ print(Delhi_wheat)
 
 
 #Unique Delhi Foods
-Delhi_foods <- food_prices %>%
+delhi_foods <- food_prices %>%
   filter(adm1_name == "Delhi")
 
-Delhi_foods_u <- unique(Delhi_foods$cm_name)
-View(Delhi_foods_u)
+delhi_foods_u <- unique(delhi_foods$cm_name)
 
 #---------------------- adding percent changes--------------------------
 
