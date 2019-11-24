@@ -151,7 +151,7 @@ temp_w_percent <- global_temp %>%
   mutate(change = AverageTemperature - lag(AverageTemperature, default = AverageTemperature[1])) %>%
   mutate(percent_change = change / lag(AverageTemperature, default = AverageTemperature[1]) * 100) %>%
   filter(percent_change != 0) %>%
-  select(City, Country, percent_change)
+  select(City, Country, percent_change, Longitude, Latitude)
 
 
 
@@ -206,7 +206,7 @@ print(create_bar_chart("Oil"))
 #Foods that are best for shiny app:
 #Oil, Rice, Wheat, Sugar, Lentils, Maize, Bread
 
-<<<<<<< HEAD
+
 #----------------------Global Temp Heat Map (w/ Percent Change)--------------------------
 
 
@@ -218,10 +218,10 @@ print(create_bar_chart("Oil"))
 
 # App server stuff - have it do it for every 
 # have a couple cities, have the options for mutliple different foods for each city
-=======
+
 # App server stuff - have it do it for every have a couple cities, have the 
 # options for mutliple different foods for each city
->>>>>>> 60f8d3e33680d10441405b0ac522b58a0906d781
+
 # two different y axis? one with Degrees Celsius and one with market price / KG
 # Sierra ^^
 
