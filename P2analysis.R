@@ -17,8 +17,10 @@ cities_temp <- unique(global_temp$City)
 cities_food <- unique(food_prices$adm1_name)
 
 
+
 #Select from list of cities in both datasets
 cities_list <- intersect(cities_food, cities_temp)
+
 
 
 
@@ -40,6 +42,7 @@ city_food_data <- function(city, food) {
   return(food_data)
 }
 
+
 #food data starts in 2006 and global temp data begins in 1881
 #To make sure we show data that we have collected for both years
 #This function includes filtering years > 2006 then selects
@@ -55,53 +58,59 @@ city_temp_data <- function(city) {
   return(temp)
 }
 
-
 #Method to merge the two data sets into one for plot
 merge_data <- function(df1, df2) {
   return(merge(df1, df2, by = "date"))
 }
 
 
+#Merge isnt working - Ethan will fix dates
+example <- merge_data(city_food_data("Delhi", "Wheat"), city_temp_data("Delhi"))
+View(example)
 
-#Fix best fit line, just connecting top - not regression
-scatter_plot <- function(df) {
-  return(plot_ly(df, x = ~date, y = ~AverageTemperature,
-                 name = "Average Temperature",
-                 type = "scatter") %>%
-           add_trace(y = ~mp_price, name = "Market Price") %>%
+
+
+#Fix best fit line, rn just connecting top - not regression
+scatter_plot <- function(df){
+  return(plot_ly(df, x = ~date, y = ~AverageTemperature, name = 'Average Temperature',
+                 type = 'scatter') %>%
+           add_trace(y = ~mp_price, name = 'Maket Price') %>%
            add_lines(x = ~date, y = fitted(~mp_price)))
 }
 
-line_plot <- function(df) {
-  return(plot_ly(df, x = ~date, y = ~AverageTemperature,
-                 name = "Average Temperature",
-                 type = "scatter", mode = "lines",
-                 line = list(color = "rgb(205, 12, 24)", width = 4)) %>%
-           add_trace(y = ~mp_price, name = "Market Price",
-                     line = list(color = 'rgb(22, 96, 167)',
-                                 width = 4)))
+
+#working fine but not preferable
+line_plot <- function(df){
+  return(plot_ly(df, x = ~date, y = ~AverageTemperature, name = 'Average Temperature',
+                 type = 'scatter', mode = 'lines',
+                 line = list(color = 'rgb(205, 12, 24)', width = 4)) %>%
+           add_trace(y = ~mp_price, name = 'Maket Price',
+                     line = list(color = 'rgb(22, 96, 167)', width = 4)))
 }
 
+
+#takes in city and food and returns information as plot
 data_and_plot <- function(city, food){
   city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
   return(line_plot(city_data))
 }
 
-
-#Lima And Maize tests
-lima_plot <- data_and_plot("Lima", "Maize (local)")
+#Tests and Plots
 
 
 
-#Delhi and mustard oil
-delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
+#Lima And Maize plot
+Lima_plot <- data_and_plot("Lima", "Maize (local)")
+print(Lima_plot)
 
 
+#Delhi and mustard oil plot
+Delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
+print(Delhi_plot)
 
-
-#Delhi and wheat
-delhi_wheat <- data_and_plot("Delhi", "Wheat")
-
+#Delhi and wheat plot
+Delhi_wheat <- data_and_plot("Delhi", "Wheat")
+print(Delhi_wheat)
 
 
 #Unique Delhi Foods
@@ -110,14 +119,62 @@ delhi_foods <- food_prices %>%
 
 delhi_foods_u <- unique(delhi_foods$cm_name)
 
+#---------------------- adding percent changes--------------------------
 
+temp_w_percent <- global_temp %>%
+  mutate(month = substring(dt, 6, 7),
+         year = as.numeric(substring(dt, 1, 4))) %>%
+  filter(month == "10") %>%
+  group_by(City) %>%
+  filter(year == 2006 | year == 2012) %>%
+  mutate(change = AverageTemperature - lag(AverageTemperature, default = AverageTemperature[1])) %>%
+  mutate(percent_change = change / lag(AverageTemperature, default = AverageTemperature[1]) * 100) %>%
+  filter(percent_change != 0) %>%
+  select(City, Country, percent_change)
+
+
+food_change<- food_prices %>%
+  filter(mp_month == 10) %>%
+  group_by(adm1_name, cm_name) %>%
+  filter(mp_year == max(mp_year) | mp_year == min(mp_year)) %>%
+  mutate(price_change = mp_price - lag(mp_price, default = mp_price[1]),
+         City = adm1_name) %>%
+  mutate(food_percent = price_change / lag(mp_price, default = mp_price[1]) * 100) %>%
+  filter(price_change != 0) %>%
+  select(City, adm0_name, adm1_name, cm_name, food_percent)
+
+
+percent_change <- merge(food_change, temp_w_percent, by = "City")
+
+  
+ggplot(percent_change, aes(fill = food_percent, y = percent_change, x = City)) + 
+  geom_bar(position="stack", stat="identity")
+
+
+#Function to create bar plot based on specific foods
+#Returns barchart with any city that has data about the food parameter entered 
+create_bar_chart <- function(food){
+  specific_data <- percent_change %>%
+    filter(cm_name == food)
+  return(ggplot(specific_data, aes(fill = food_percent, y = percent_change, x = City)) + 
+           geom_bar(position="stack", stat="identity"))
+}
+
+
+print(create_bar_chart("Wheat flour"))
+
+#Wheat, Rice, Sugar, Rice (local), Lentils, Maize (local), Bread, Wheat flour
 
 
 # App server stuff - have it do it for every 
 # have a couple cities, have the options for mutliple different foods for each city
 # two different y axis? one with Degrees Celsius and one with market price / KG
+#Sierra ^^
 
 # percent change for both market price of food and temp
 # Do this based on the same month of 2006 to 2013 (i.e. March)
+
+# heat map 
+# using original data sets of both with longitude and lat
 
 
