@@ -79,9 +79,11 @@ scatter_plot <- function(df){
 }
 
 
+
 #working fine but not preferable
 line_plot <- function(df){
-  return(plot_ly(df, x = ~date, y = ~AverageTemperature, name = 'Average Temperature',
+  return(plot_ly(df, x = ~date, y = ~AverageTemperature,
+                 name = 'Average Temperature',
                  type = 'scatter', mode = 'lines',
                  line = list(color = 'rgb(205, 12, 24)', width = 4)) %>%
            add_trace(y = ~mp_price, name = 'Maket Price',
@@ -166,8 +168,8 @@ print(create_bar_chart("Wheat flour"))
 #Wheat, Rice, Sugar, Rice (local), Lentils, Maize (local), Bread, Wheat flour
 
 
-# App server stuff - have it do it for every 
-# have a couple cities, have the options for mutliple different foods for each city
+# App server stuff - have it do it for every have a couple cities, have the 
+# options for mutliple different foods for each city
 # two different y axis? one with Degrees Celsius and one with market price / KG
 #Sierra ^^
 
