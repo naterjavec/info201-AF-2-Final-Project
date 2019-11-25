@@ -103,8 +103,8 @@ page_four <- tabPanel(
                     selectInput("city", "Choose a City:",
                                 choices = c("Dehli", "other cities here"))),
                 mainPanel(
-                    data_and_plot("Delhi", "Wheat")
-                    #graph
+                    #data_and_plot("Delhi", "Wheat")
+                    plotOutput("cityPlot")
                 )
             )
 )
@@ -153,7 +153,9 @@ ui <- navbarPage(
         )
         
 server <- function(input, output) {
-            
+            output$cityPlot <- renderPlot(
+                data_and_plot(city_temp_data(input$City), city_food_data(input$cm_name))
+            )
         }
 
 shinyApp(ui = ui, server = server)
