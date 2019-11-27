@@ -44,8 +44,10 @@ are the beneficial choices for their constituency.")),
             of industry limitation in the near future, yet
             the legitimacy of these effects is still struggling
             to be recognized in legislation."),
-            h3(#add hyperlinks to datasets here
-                )
+            h3("Data Sets:"),
+            h4("https://www.kaggle.com/berkeleyearth/climate-change
+               -earth-surface-temperature-data"),
+            h4("https://www.kaggle.com/jboysen/global-food-prices")
             )
         )
 )
@@ -101,8 +103,8 @@ page_four <- tabPanel(
                     selectInput("city", "Choose a City:",
                                 choices = c("Dehli", "other cities here"))),
                 mainPanel(
-                    data_and_plot("Delhi", "Wheat")
-                    #graph
+                    #data_and_plot("Delhi", "Wheat")
+                    plotOutput("cityPlot")
                 )
             )
 )
@@ -151,7 +153,9 @@ ui <- navbarPage(
         )
         
 server <- function(input, output) {
-            
+            output$cityPlot <- renderPlot(
+                data_and_plot(city_temp_data(input$City), city_food_data(input$cm_name))
+            )
         }
 
 shinyApp(ui = ui, server = server)
