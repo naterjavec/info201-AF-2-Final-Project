@@ -44,6 +44,7 @@ are the beneficial choices for their constituency.")),
             of industry limitation in the near future, yet
             the legitimacy of these effects is still struggling
             to be recognized in legislation."),
+<<<<<<< HEAD
             h3(#add hyperlinks to datasets here
             ),
             h3("Working Through the Data"),
@@ -54,6 +55,12 @@ are the beneficial choices for their constituency.")),
             p("Sierra:"),
             p("Ethan:"),
             p("Tyler:")
+=======
+            h3("Data Sets:"),
+            h4("https://www.kaggle.com/berkeleyearth/climate-change
+               -earth-surface-temperature-data"),
+            h4("https://www.kaggle.com/jboysen/global-food-prices")
+>>>>>>> de23ce9b9c69167b3ca9332073fe070989b4a4e6
             )
         )
 )
@@ -109,8 +116,13 @@ page_four <- tabPanel(
                     selectInput("city", "Choose a City:",
                                 choices = cities_list)),
                 mainPanel(
+<<<<<<< HEAD
                     plotOutput("cityPlot")
                     #data_and_plot("Delhi", "Wheat")
+=======
+                    #data_and_plot("Delhi", "Wheat")
+                    plotOutput("cityPlot")
+>>>>>>> de23ce9b9c69167b3ca9332073fe070989b4a4e6
                 )
             )
 )
@@ -159,6 +171,7 @@ ui <- navbarPage(
         )
         
 server <- function(input, output) {
+<<<<<<< HEAD
        # output$cityPlot <- renderPlot({
         #    data_and_plot(city_temp_data(input$City), city_food_data(input$cm_name))
         #})
@@ -169,6 +182,13 @@ server <- function(input, output) {
         #    switch(input$data_and_plot))
         #output$view <- renderPlotly
 }
+=======
+            output$cityPlot <- renderPlot(
+                data_and_plot(city_temp_data(input$City), city_food_data(input$cm_name))
+            )
+        }
+
+>>>>>>> de23ce9b9c69167b3ca9332073fe070989b4a4e6
 shinyApp(ui = ui, server = server)
 
 
