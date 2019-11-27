@@ -7,7 +7,7 @@
 #    http://shiny.rstudio.com/
 #
 
-library(shiny)
+library("shiny")
 library(plotly)
 source("P2analysis.R")
 library("ggplot2")
@@ -45,7 +45,15 @@ are the beneficial choices for their constituency.")),
             the legitimacy of these effects is still struggling
             to be recognized in legislation."),
             h3(#add hyperlinks to datasets here
-                )
+            ),
+            h3("Working Through the Data"),
+            p("While working on this project, each group member was
+            responsible for different parts of the report. They are
+            as follows:"),
+            p("Natalie:"),
+            p("Sierra:"),
+            p("Ethan:"),
+            p("Tyler:")
             )
         )
 )
@@ -99,10 +107,10 @@ page_four <- tabPanel(
             sidebarLayout(
                 sidebarPanel(#Commentary on visualization
                     selectInput("city", "Choose a City:",
-                                choices = c("Dehli", "other cities here"))),
+                                choices = cities_list)),
                 mainPanel(
-                    data_and_plot("Delhi", "Wheat")
-                    #graph
+                    plotOutput("cityPlot")
+                    #data_and_plot("Delhi", "Wheat")
                 )
             )
 )
@@ -151,10 +159,20 @@ ui <- navbarPage(
         )
         
 server <- function(input, output) {
-            
-        }
-
+       # output$cityPlot <- renderPlot({
+        #    data_and_plot(city_temp_data(input$City), city_food_data(input$cm_name))
+        #})
+    
+    #output$plot <- renderPlotly(data_and_plot())
+        #plot_ly()
+        #datasetInput <- eventReactive(input$update,
+        #    switch(input$data_and_plot))
+        #output$view <- renderPlotly
+}
 shinyApp(ui = ui, server = server)
+
+
+
 
 
 
