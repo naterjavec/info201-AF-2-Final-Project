@@ -31,7 +31,6 @@ cities_list <- intersect(cities_food, cities_temp)
 
 
 #filters to city and food of choice then selects relevant columns
-#excludes data points from after 2013 so it wil correspond with
 #temperature data
 city_food_data <- function(city, food) {
   food_data <- food_prices %>%

@@ -7,7 +7,7 @@
 #    http://shiny.rstudio.com/
 #
 
-library(shiny)
+library("shiny")
 library(plotly)
 source("P2analysis.R")
 library("ggplot2")
@@ -44,10 +44,23 @@ are the beneficial choices for their constituency.")),
             of industry limitation in the near future, yet
             the legitimacy of these effects is still struggling
             to be recognized in legislation."),
+<<<<<<< HEAD
+            h3(#add hyperlinks to datasets here
+            ),
+            h3("Working Through the Data"),
+            p("While working on this project, each group member was
+            responsible for different parts of the report. They are
+            as follows:"),
+            p("Natalie:"),
+            p("Sierra:"),
+            p("Ethan:"),
+            p("Tyler:")
+=======
             h3("Data Sets:"),
             h4("https://www.kaggle.com/berkeleyearth/climate-change
                -earth-surface-temperature-data"),
             h4("https://www.kaggle.com/jboysen/global-food-prices")
+>>>>>>> de23ce9b9c69167b3ca9332073fe070989b4a4e6
             )
         )
 )
@@ -101,10 +114,15 @@ page_four <- tabPanel(
             sidebarLayout(
                 sidebarPanel(#Commentary on visualization
                     selectInput("city", "Choose a City:",
-                                choices = c("Dehli", "other cities here"))),
+                                choices = cities_list)),
                 mainPanel(
+<<<<<<< HEAD
+                    plotOutput("cityPlot")
+                    #data_and_plot("Delhi", "Wheat")
+=======
                     #data_and_plot("Delhi", "Wheat")
                     plotOutput("cityPlot")
+>>>>>>> de23ce9b9c69167b3ca9332073fe070989b4a4e6
                 )
             )
 )
@@ -153,12 +171,28 @@ ui <- navbarPage(
         )
         
 server <- function(input, output) {
+<<<<<<< HEAD
+       # output$cityPlot <- renderPlot({
+        #    data_and_plot(city_temp_data(input$City), city_food_data(input$cm_name))
+        #})
+    
+    #output$plot <- renderPlotly(data_and_plot())
+        #plot_ly()
+        #datasetInput <- eventReactive(input$update,
+        #    switch(input$data_and_plot))
+        #output$view <- renderPlotly
+}
+=======
             output$cityPlot <- renderPlot(
                 data_and_plot(city_temp_data(input$City), city_food_data(input$cm_name))
             )
         }
 
+>>>>>>> de23ce9b9c69167b3ca9332073fe070989b4a4e6
 shinyApp(ui = ui, server = server)
+
+
+
 
 
 
