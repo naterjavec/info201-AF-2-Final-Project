@@ -197,6 +197,26 @@ print(create_bar_chart("Oil"))
 # Do this based on the same month of 2006 to 2013 (i.e. March)
 
 # heat map 
-# using original data sets of both with longitude and lat
+# using original data sets of both with longitude and lat 
 
+# CURRENTLY BROKEN BELOW, Error: Discrete value supplied to continuous scale
 
+map_info <- map_data("world") %>% 
+  filter(region != "Antarctica") %>% 
+  rename(Country = region) %>% 
+  left_join(temp_w_percent, by = "Country")
+
+  
+
+heat_map <- ggplot(map_info) +
+ geom_polygon(mapping = aes(x = long, y = lat, fill = percent_change, group = group, color = Country)) + 
+ geom_point(
+   data = temp_w_percent,
+   mapping = aes(x = Longitude, y = Latitude),
+   color = "white"
+ ) +
+ coord_map()
+#   geom_sf(color = "black") + 
+#   scale_fill_continuous(low = "#132B43", high = "Red") +
+#   labs(fill = "Percent Change of Temperature")
+  
