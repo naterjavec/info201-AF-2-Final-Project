@@ -66,7 +66,7 @@ merge_data <- function(df1, df2) {
 
 #Merge isnt working - Ethan will fix dates
 example <- merge_data(city_food_data("Delhi", "Wheat"), city_temp_data("Delhi"))
-View(example)
+#View(example)
 
 
 
@@ -96,13 +96,13 @@ line_plot <- function(df, city, food){
                      line = list(color = 'rgb(22, 96, 167)', width = 4)) %>%
            layout(title = title,
                   xaxis = list(title = "Date"),
-                  yaxis = list(title = "Price (local currnecy) and Average Temperature (*C)")))
+                  yaxis = list(title = "Price (local currency) and Average Temperature (*C)")))
 
 }
 
 
 #takes in city and food and returns information as plot
-data_and_plot <- function(city, food){
+data_and_plot <- function(city = "Delhi", food = "Wheat"){
   city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
   return(line_plot(city_data, city, food))
 }
