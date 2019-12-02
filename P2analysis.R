@@ -36,7 +36,8 @@ city_food_data <- function(city, food) {
   food_data <- food_prices %>%
     filter(adm1_name == city,
            cm_name == food,
-           mp_year < 2014) %>%
+           mp_year < 2014,
+           mp_month < 10) %>%
     mutate(date = paste(mp_year, "-", mp_month, sep = "")) %>%
    select(date, mp_price)
   return(food_data)
