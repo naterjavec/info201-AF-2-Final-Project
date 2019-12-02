@@ -102,34 +102,38 @@ line_plot <- function(df, city, food){
 
 
 #takes in city and food and returns information as plot
-data_and_plot <- function(city = "Delhi", food = "Wheat"){
+#data_and_plot <- function(city = "Delhi", food = "Wheat"){
+#  city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
+#  return(line_plot(city_data, city, food))
+#}
+data_and_plot <- function(city = "Delhi"){
+  food <- "Wheat"
   city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
   return(line_plot(city_data, city, food))
 }
-
-
+#data_and_plot()
 
 #Tests and Plots
 
 #Lima And Maize plot
-Lima_plot <- data_and_plot("Lima", "Maize (local)")
-print(Lima_plot)
+#Lima_plot <- data_and_plot("Lima", "Maize (local)")
+#print(Lima_plot)
 
 
 #Delhi and mustard oil plot
-Delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
-print(Delhi_plot)
+#Delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
+#print(Delhi_plot)
 
 #Delhi and wheat plot
-Delhi_wheat <- data_and_plot("Delhi", "Wheat")
-print(Delhi_wheat)
+#Delhi_wheat <- data_and_plot("Delhi", "Wheat")
+#print(Delhi_wheat)
 
 
 #Unique Delhi Foods
-delhi_foods <- food_prices %>%
-  filter(adm1_name == "Delhi")
+#delhi_foods <- food_prices %>%
+#  filter(adm1_name == "Delhi")
 
-delhi_foods_u <- unique(delhi_foods$cm_name)
+#delhi_foods_u <- unique(delhi_foods$cm_name)
 
 
 #---------------------- adding percent changes--------------------------
@@ -197,10 +201,10 @@ create_bar_chart <- function(food){
 #Bar chart tests
 
 #Rice tests
-print(create_bar_chart("Rice"))
+#print(create_bar_chart("Rice"))
 
 #Wheat test
-print(create_bar_chart("Oil"))
+#print(create_bar_chart("Oil"))
 
 #Foods that are best for shiny app:
 #Oil, Rice, Wheat, Sugar, Lentils, Maize, Bread

@@ -43,7 +43,9 @@ page_two <- tabPanel(
             "Problem Situation",
             sidebarLayout(
               sidebarPanel(
-                #From Project Proposal
+  #                selectInput("pg2_food", "Choose a Food:",
+  #                            choices = "Oil", "Rice", "Wheat", "Sugar",
+   #                           "Lentils", "Maize")
               ),
               mainPanel(
                   p("If the scope of climate change extends to food prices, 
@@ -57,10 +59,11 @@ page_two <- tabPanel(
                     this change would create yet another opportunity for
                     companies to wedge a gap between the upper class and
                     the middle and lower class, creating more divide than 
-                    our nation already faces."),  
+                    our nation already faces."),
+                 # plotOutput(create_bar_chart())
               )
             )
-        )
+)
         
 page_three <- tabPanel(
             "Data Critique",
@@ -69,15 +72,23 @@ page_three <- tabPanel(
                     #Strengths and weaknesses from project proposal
                 ),
                 mainPanel(
-                    p("A strength is that both data sets are comprehensive,
-                    with very little missing values. 
-                    The columns they do have are very consistent in their values.
-                    A weakness is that cities are the only locations considered,
-                    showcasing the impact of this global phenomenon for only a certain
-                    group of people. The cities included in these data sets also must
-                    overlap, otherwise no trend between temperature and price can be
-                    made. In addition, climate change is a slow process, and our 
-                    specific data set for food prices spans many locations but
+                    p("A strength is that both data sets are
+                    comprehensive,
+                    with very little missing values.
+                    The columns they do have are very consistent
+                    in their values.A weakness is that
+                    cities are the only locations
+                    considered, showcasing the impact
+                    of this global phenomenon for only
+                    a certain group of people. The 
+                    cities included in
+                    these data sets also must
+                    overlap, otherwise no trend between
+                    temperature and price can be
+                    made. In addition, climate change is a
+                    slow process, and our specific
+                    data set for food prices spans
+                    many locations but
                     only dates about a decade back.")
                 )
             )
@@ -87,11 +98,10 @@ page_four <- tabPanel(
             "Visualization",
             sidebarLayout(
                 sidebarPanel(#Commentary on visualization
-                    selectInput("city", "Choose a City:",
+                    selectInput("city_select", "Choose a City:",
                                 choices = cities_list)),
                 mainPanel(
-                    plotOutput("cityPlot"),
-                    data_and_plot()
+                    plotOutput("cityPlot")
                 )
             )
 )
@@ -101,14 +111,19 @@ page_five <- tabPanel(
             sidebarLayout(
                 sidebarPanel(
                     h3("Working Through the Data"),
-                    p("While working on this project, each group member was
-            responsible for different parts of the report. They are
-            as follows:"),
+                    p("While working on this project, each group 
+                    member was responsible for different parts 
+                    of the report. They are as follows:"),
                     p("Natalie:"),
-                    p("Sierra:"),
+                    p("Sierra: I worked on creating the page format 
+                    and in-page formatting, connecting the
+                      server to the user interface, and inputting
+                      visualizations into the ui."),
                     p("Ethan:"),
                     p("Tyler:"),
-                    h3("Data Sets:")
+                    h3("Data Sets:"),
+                    h5(uiOutput("tab")),
+                    h5(uiOutput("tab2"))
                 ),
                 mainPanel(
                     p("In the project, we found ourselves wanting to
@@ -130,9 +145,7 @@ page_five <- tabPanel(
                       set for food prices that goes back further
                       in time and provide more cities in Europe 
                       and North America in order to see a more
-                      accurate trend."),
-                    h4("https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data"),
-                    h4("https://www.kaggle.com/jboysen/global-food-prices")
+                      accurate trend.")
                 )
             )
         )
@@ -147,20 +160,6 @@ ui <- navbarPage(
             page_four, 
             page_five
         )
-        
-server <- function(input, output) {
-    
-    #output$plot <- renderPlotly(data_and_plot())
-        #plot_ly()
-        #datasetInput <- eventReactive(input$update,
-        #    switch(input$data_and_plot))
-        #output$view <- renderPlotly
-#}
-            output$cityPlot <- renderPlot({
-                data_and_plot(city_temp_data(input$City),
-                              city_food_data("Wheat"))
-            })
-        }
 
 shinyApp(ui = ui, server = server)
 
