@@ -3,7 +3,6 @@ library("plotly")
 source("P2analysis.R")
 library("ggplot2")
 
-#----------------Questions: why doesn't pg 2 list work?
 
 page_one <- tabPanel(
     "Introduction",
@@ -51,6 +50,7 @@ page_two <- tabPanel(
                               )
               ),
               mainPanel(
+                h3("The Problem"),
                   p("If the scope of climate change extends to food prices, 
                     then many countries will find themselves at an extreme
                     disadvantage in the global market, and citizens of
@@ -98,14 +98,14 @@ page_three <- tabPanel(
         )
         
 page_four <- tabPanel(
-            "Visualization",
+            "Temp vs. Price",
             sidebarLayout(
                 sidebarPanel(#Commentary on visualization
                     selectInput("city_select", "Choose a City:",
-                                choices = cities_list),
+                                choices = c("Aleppo", "Delhi")),
                     selectInput("food", "Choose a Food:",
-                            choices = c("Oil", "Rice", "Wheat", "Sugar",
-                                        "Lentils", "Maize")
+                            choices = c("Rice", "Sugar", "Lentils"),
+                            h3()
                 )),
                 mainPanel(
                     plotlyOutput("cityPlot")
@@ -175,10 +175,6 @@ server <- function(input, output) {
   output$food_plot <- renderPlotly({
     create_bar_chart(input$pg2_food)
   })
-  
-  #  output$cityPlot <- renderPlot({
-  #     data_and_plot(city_temp_data(input$City), city_food_data(input$cm_name))
-  #  })
   temp_url <- a("here", href="https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data")
   output$tab <- renderUI({
     tagList("To learn more about global temperatures, click", temp_url)

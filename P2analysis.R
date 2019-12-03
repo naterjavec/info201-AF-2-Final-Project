@@ -66,7 +66,6 @@ merge_data <- function(df1, df2) {
 
 #Merge isnt working - Ethan will fix dates
 example <- merge_data(city_food_data("Delhi", "Wheat"), city_temp_data("Delhi"))
-#View(example)
 
 
 
@@ -110,9 +109,6 @@ data_and_plot <- function(city = "Delhi", food = "Wheat"){
   city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
   return(line_plot(city_data, city, food))
 }
-
-
-#data_and_plot()
 
 #Tests and Plots
 
@@ -158,7 +154,6 @@ temp_w_percent <- global_temp %>%
   select(City, Country, percent_change, Longitude, Latitude)
 
 
-
 # Mutating the food data set so that it contains only the month of October
 # from 2006 to 2014 (most cities did not have data for 2012). The difference of 
 # the two prices for each food is calculated and divided by the price in
@@ -196,14 +191,12 @@ create_bar_chart <- function(food){
                      name = 'Food Price Percent Change') %>%
            layout(yaxis = list(title = 'Percent')))
 }
+create_bar_chart("Wheat")
+#----Bar chart tests----
 
-t <- create_bar_chart("Rice")
+specific_data <- percent_change[percent_change$cm_name %like% "Oil", ]
+#View(specific_data)
 
-
-
-#Bar chart tests
-
-#Rice tests
 #print(create_bar_chart("Rice"))
 
 #Wheat test
@@ -213,7 +206,7 @@ t <- create_bar_chart("Rice")
 #Oil, Rice, Wheat, Sugar, Lentils, Maize, Bread
 
 
-#----------------------Global Temp Heat Map (w/ Percent Change)--------------------------
+#------------------Global Temp Heat Map (w/ Percent Change)---------------------
 
 
 
