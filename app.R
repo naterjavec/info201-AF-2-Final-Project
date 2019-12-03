@@ -1,21 +1,12 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
-library(shiny)
-library(plotly)
+library("shiny")
+library("plotly")
 source("P2analysis.R")
 library("ggplot2")
 
-#First page, describes the project.
+
 page_one <- tabPanel(
-    "About",
-    titlePanel("About"),
+    "Introduction",
+    titlePanel("Introduction"),
     sidebarLayout(
         sidebarPanel(
         h4("Who Cares"),
@@ -27,7 +18,8 @@ that affect those prices. Their values and quality of
 life over profitability may be in direct contrast with
 each other. It is the policymakers’ task to determine
 whether limiting industries or risking people’s livelihood
-are the beneficial choices for their constituency.")),
+are the beneficial choices for their constituency.")
+        ),
         mainPanel(
             h3("Ask Yourself..."),
             h4("Is the price of food in major cities affected
@@ -44,10 +36,21 @@ are the beneficial choices for their constituency.")),
             of industry limitation in the near future, yet
             the legitimacy of these effects is still struggling
             to be recognized in legislation."),
+            h3(#add hyperlinks to datasets here
+            ),
+            h3("Working Through the Data"),
+            p("While working on this project, each group member was
+            responsible for different parts of the report. They are
+            as follows:"),
+            p("Natalie:"),
+            p("Sierra:"),
+            p("Ethan:"),
+            p("Tyler:"),
             h3("Data Sets:"),
             h4("https://www.kaggle.com/berkeleyearth/climate-change
                -earth-surface-temperature-data"),
             h4("https://www.kaggle.com/jboysen/global-food-prices")
+
             )
         )
 )
@@ -56,7 +59,10 @@ page_two <- tabPanel(
             "Problem Situation",
             sidebarLayout(
               sidebarPanel(
-                #From Project Proposal
+                  selectInput("pg2_food", "Choose a Food:",
+                              choices = c("Oil", "Rice", "Wheat", "Sugar",
+                              "Lentils", "Maize")
+                              )
               ),
               mainPanel(
                   p("If the scope of climate change extends to food prices, 
@@ -70,10 +76,11 @@ page_two <- tabPanel(
                     this change would create yet another opportunity for
                     companies to wedge a gap between the upper class and
                     the middle and lower class, creating more divide than 
-                    our nation already faces."),  
+                    our nation already faces."),
+                  plotlyOutput("food_plot")
               )
             )
-        )
+)
         
 page_three <- tabPanel(
             "Data Critique",
@@ -82,15 +89,23 @@ page_three <- tabPanel(
                     #Strengths and weaknesses from project proposal
                 ),
                 mainPanel(
-                    p("A strength is that both data sets are comprehensive,
-                    with very little missing values. 
-                    The columns they do have are very consistent in their values.
-                    A weakness is that cities are the only locations considered,
-                    showcasing the impact of this global phenomenon for only a certain
-                    group of people. The cities included in these data sets also must
-                    overlap, otherwise no trend between temperature and price can be
-                    made. In addition, climate change is a slow process, and our 
-                    specific data set for food prices spans many locations but
+                    p("A strength is that both data sets are
+                    comprehensive,
+                    with very little missing values.
+                    The columns they do have are very consistent
+                    in their values.A weakness is that
+                    cities are the only locations
+                    considered, showcasing the impact
+                    of this global phenomenon for only
+                    a certain group of people. The 
+                    cities included in
+                    these data sets also must
+                    overlap, otherwise no trend between
+                    temperature and price can be
+                    made. In addition, climate change is a
+                    slow process, and our specific
+                    data set for food prices spans
+                    many locations but
                     only dates about a decade back.")
                 )
             )
@@ -100,22 +115,41 @@ page_four <- tabPanel(
             "Visualization",
             sidebarLayout(
                 sidebarPanel(#Commentary on visualization
-                    selectInput("city", "Choose a City:",
-                                choices = c("Dehli", "other cities here"))),
+                    selectInput("city_select", "Choose a City:",
+                                choices = cities_list),
+                    selectInput("food", "Choose a Food:",
+                            choices = c("Oil", "Rice", "Wheat", "Sugar",
+                                        "Lentils", "Maize")
+                )),
                 mainPanel(
-                    #data_and_plot("Delhi", "Wheat")
-                    plotOutput("cityPlot")
+
+                    plotlyOutput("cityPlot")
+
                 )
             )
 )
         
 page_five <- tabPanel(
-            "Further Inquiry",
+            "About",
             sidebarLayout(
                 sidebarPanel(
-                    #Analysis on results and further questions.
+                    h3("Working Through the Data"),
+                    p("While working on this project, each group 
+                    member was responsible for different parts 
+                    of the report. They are as follows:"),
+                    p("Natalie:"),
+                    p("Sierra: I worked on creating the page format 
+                    and in-page formatting, connecting the
+                      server to the user interface, and inputting
+                      visualizations into the UI."),
+                    p("Ethan:"),
+                    p("Tyler:"),
+                    h3("Data Sets:"),
+                    h5(uiOutput("tab")),
+                    h5(uiOutput("tab2"))
                 ),
                 mainPanel(
+                  h3("About"),
                     p("In the project, we found ourselves wanting to
                       compare many different types of crops in order 
                       to get a better picture of the effects of 
@@ -136,12 +170,9 @@ page_five <- tabPanel(
                       in time and provide more cities in Europe 
                       and North America in order to see a more
                       accurate trend.")
-                    
                 )
             )
         )
-        
-
 
 ui <- navbarPage(
             "The Effect of Climate Change on Food Prices",
@@ -153,12 +184,27 @@ ui <- navbarPage(
         )
         
 server <- function(input, output) {
-            output$cityPlot <- renderPlot(
-                data_and_plot(city_temp_data(input$City), city_food_data(input$cm_name))
-            )
-        }
+  
+  output$cityPlot <- renderPlotly({
+    data_and_plot(input$city_select, input$food)
+  })
+  output$food_plot <- renderPlotly({
+    create_bar_chart(input$pg2_food)
+  })
+  temp_url <- a("here", href="https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data")
+  output$tab <- renderUI({
+    tagList("To learn more about global temperatures, click", temp_url)
+  })
+  food_url <- a("here", href="https://www.kaggle.com/jboysen/global-food-prices")
+  output$tab2 <- renderUI({
+    tagList("To learn more about food prices, click", food_url)
+  })
+}
 
 shinyApp(ui = ui, server = server)
+
+
+
 
 
 

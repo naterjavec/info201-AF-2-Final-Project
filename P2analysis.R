@@ -38,13 +38,13 @@ summary <- function(){
 
 
 #filters to city and food of choice then selects relevant columns
-#excludes data points from after 2013 so it wil correspond with
 #temperature data
 city_food_data <- function(city, food) {
   food_data <- food_prices %>%
     filter(adm1_name == city,
            cm_name == food,
-           mp_year < 2014) %>%
+           mp_year < 2014,
+           mp_month < 10) %>%
     mutate(date = paste(mp_year, "-", mp_month, sep = "")) %>%
    select(date, mp_price)
   return(food_data)
@@ -74,7 +74,7 @@ merge_data <- function(df1, df2) {
 
 #Merge isnt working - Ethan will fix dates
 example <- merge_data(city_food_data("Delhi", "Wheat"), city_temp_data("Delhi"))
-View(example)
+#View(example)
 
 
 
@@ -104,40 +104,45 @@ line_plot <- function(df, city, food){
                      line = list(color = 'rgb(22, 96, 167)', width = 4)) %>%
            layout(title = title,
                   xaxis = list(title = "Date"),
-                  yaxis = list(title = "Price (local currnecy) and Average Temperature (*C)")))
+                  yaxis = list(title = "Price (local currency) and Average Temperature (*C)")))
 
 }
 
 
 #takes in city and food and returns information as plot
-data_and_plot <- function(city, food){
+#data_and_plot <- function(city = "Delhi", food = "Wheat"){
+#  city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
+#  return(line_plot(city_data, city, food))
+#}
+data_and_plot <- function(city = "Delhi", food = "Wheat"){
   city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
   return(line_plot(city_data, city, food))
 }
 
 
+#data_and_plot()
 
 #Tests and Plots
 
 #Lima And Maize plot
-Lima_plot <- data_and_plot("Lima", "Maize (local)")
-print(Lima_plot)
+#Lima_plot <- data_and_plot("Lima", "Maize (local)")
+#print(Lima_plot)
 
 
 #Delhi and mustard oil plot
-Delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
-print(Delhi_plot)
+#Delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
+#print(Delhi_plot)
 
 #Delhi and wheat plot
-Delhi_wheat <- data_and_plot("Delhi", "Wheat")
-print(Delhi_wheat)
+#Delhi_wheat <- data_and_plot("Delhi", "Wheat")
+#print(Delhi_wheat)
 
 
 #Unique Delhi Foods
-delhi_foods <- food_prices %>%
-  filter(adm1_name == "Delhi")
+#delhi_foods <- food_prices %>%
+#  filter(adm1_name == "Delhi")
 
-delhi_foods_u <- unique(delhi_foods$cm_name)
+#delhi_foods_u <- unique(delhi_foods$cm_name)
 
 
 #---------------------- adding percent changes--------------------------
@@ -200,15 +205,17 @@ create_bar_chart <- function(food){
            layout(yaxis = list(title = 'Percent')))
 }
 
+t <- create_bar_chart("Rice")
+
 
 
 #Bar chart tests
 
 #Rice tests
-print(create_bar_chart("Rice"))
+#print(create_bar_chart("Rice"))
 
 #Wheat test
-print(create_bar_chart("Oil"))
+#print(create_bar_chart("Oil"))
 
 #Foods that are best for shiny app:
 #Oil, Rice, Wheat, Sugar, Lentils, Maize, Bread
