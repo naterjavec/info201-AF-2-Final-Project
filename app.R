@@ -43,6 +43,7 @@ are the beneficial choices for their constituency.")
               supply. In contrast, foods that struggle to grow in heat 
               will become more expense, because the harvest will be small
               and there will be little supply.")
+
             )
         )
 )
@@ -189,7 +190,15 @@ page_five <- tabPanel(
                       set for food prices that goes back further
                       in time and provide more cities in Europe 
                       and North America in order to see a more
-                      accurate trend.")
+                      accurate trend."),
+                    h3("Affiliation"),
+                    p("INFO-201A: Technical Foundations of Informatics",
+                      br(),
+                      "The Information School",
+                      br(),
+                      "University of Washington",
+                      br(),
+                      "Autumn 2019")
                 )
             )
         )
