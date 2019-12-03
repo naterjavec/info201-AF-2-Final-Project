@@ -101,7 +101,7 @@ line_plot <- function(df, city, food){
   title <- paste(food, "in", city, "Over Time")
   return(plot_ly(df, x = ~date, y = ~AverageTemperature,
                  name = 'Average Temperature',
-                 type = 'scatter', mode = 'lines',
+                 type = 'scatter', mode = 'markers',
                  line = list(color = 'rgb(205, 12, 24)', width = 4)) %>%
            add_trace(y = ~mp_price, name = 'Market Price',
                      line = list(color = 'rgb(22, 96, 167)', width = 4)) %>%
@@ -113,17 +113,12 @@ line_plot <- function(df, city, food){
 
 
 #takes in city and food and returns information as plot
-#data_and_plot <- function(city = "Delhi", food = "Wheat"){
-#  city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
-#  return(line_plot(city_data, city, food))
-#}
+
 data_and_plot <- function(city = "Delhi", food = "Wheat"){
   city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
-  return(line_plot(city_data, city, food))
+   return(line_plot(city_data, city, food))
 }
 
-
-#data_and_plot()
 
 #Tests and Plots
 
@@ -189,7 +184,6 @@ food_change<- food_prices %>%
 
 #Data with percent changes for both food and temperature
 percent_change <- merge(food_change, temp_w_percent, by = "City")
-
 
 #----------------------Bar Graph With Percent Change--------------------------
 
