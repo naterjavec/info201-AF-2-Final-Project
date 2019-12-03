@@ -17,8 +17,8 @@ quality of life or even survival fluctuate with food
 prices. The opposite stakeholders would be industries
 that affect those prices. Their values and quality of
 life over profitability may be in direct contrast with
-each other. It is the policymakers’ task to determine
-whether limiting industries or risking people’s livelihood
+each other. It is the policymakers task to determine
+whether limiting industries or risking peoples livelihood
 are the beneficial choices for their constituency.")
         ),
         mainPanel(
@@ -37,16 +37,6 @@ are the beneficial choices for their constituency.")
             of industry limitation in the near future, yet
             the legitimacy of these effects is still struggling
             to be recognized in legislation."),
-            h3(#add hyperlinks to datasets here
-            ),
-            h3("Working Through the Data"),
-            p("While working on this project, each group member was
-            responsible for different parts of the report. They are
-            as follows:"),
-            p("Natalie:"),
-            p("Sierra:"),
-            p("Ethan:"),
-            p("Tyler:"),
             h3("Data Sets:"),
             h4("https://www.kaggle.com/berkeleyearth/climate-change
                -earth-surface-temperature-data"),
@@ -144,7 +134,10 @@ page_five <- tabPanel(
                     p("While working on this project, each group 
                     member was responsible for different parts 
                     of the report. They are as follows:"),
-                    p("Natalie:"),
+                    p("Natalie: My contributions were primarily parsing
+                      through and cleaning the data. From there, I created
+                      the interactive visualizations and helped add them to
+                      the app."),
                     p("Sierra: I worked on creating the page format 
                     and in-page formatting, connecting the
                       server to the user interface, and inputting
