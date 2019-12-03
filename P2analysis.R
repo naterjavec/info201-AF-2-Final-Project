@@ -6,7 +6,7 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(data.table)
-
+library(mapproj)
 #Download data sets as variables
 food_prices <- read.csv("data/wfp_market_food_prices.csv")
 global_temp <- read.csv("data/GlobalLandTemperaturesByMajorCity.csv")
@@ -40,6 +40,7 @@ city_food_data <- function(city, food) {
            mp_year < 2014) %>%
     mutate(date = paste(mp_year, "-", mp_month, sep = "")) %>%
    select(date, mp_price)
+  
   return(food_data)
 }
 
@@ -201,22 +202,41 @@ print(create_bar_chart("Oil"))
 
 # CURRENTLY BROKEN BELOW, Error: Discrete value supplied to continuous scale
 
-map_info <- map_data("world") %>% 
-  filter(region != "Antarctica") %>% 
-  rename(Country = region) %>% 
-  left_join(temp_w_percent, by = "Country")
-
-  
-
-heat_map <- ggplot(map_info) +
- geom_polygon(mapping = aes(x = long, y = lat, fill = percent_change, group = group, color = Country)) + 
- geom_point(
-   data = temp_w_percent,
-   mapping = aes(x = Longitude, y = Latitude),
-   color = "white"
- ) +
- coord_map()
-#   geom_sf(color = "black") + 
-#   scale_fill_continuous(low = "#132B43", high = "Red") +
-#   labs(fill = "Percent Change of Temperature")
-  
+# 
+# temp_w_percent$percent_change <- round(temp_w_percent$percent_change, 0) 
+# typeof(temp_w_percent$Latitude)
+# 
+# heat_map <- ggplot(map_info) +
+#  geom_polygon(mapping = aes(x = long, y = lat, fill = percent_change, group = group, color = region)) + 
+#  geom_point(
+#    data = temp_w_percent,
+#    mapping = aes(x = Longitude, y = Latitude),
+#    color = "white"
+#  ) +
+#   scale_x_continuous()
+#  coord_map()
+# #   geom_sf(color = "black") + 
+# #   scale_fill_continuous(low = "#132B43", high = "Red") +
+# #   labs(fill = "Percent Change of Temperature")
+#  map_world <- borders("world", colour="gray50", fill="gray50") # create a layer of borders
+#  
+#  mp <- ggplot() + map_world +
+#    geom_map(data = temp_w_percent, aes(x = Longitude, y =  Latitude, fill = percent_change),map = )+
+#    scale_x_continuous(limits = c(-200, 200)) +
+#    scale_y_continuous(limits = c(-100, 100)) + 
+#    scale_fill_gradient(low = "white", high = "#000000")
+#  
+# mp
+# 
+# # DIFFERENT ATTEMPT
+# temp_w_percent$Longitude <- as.double(temp_w_percent$Longitude)
+# temp_w_percent$Latitude <- as.double(temp_w_percent$Latitude)
+# 
+# map_world <- map_data('world') %>% filter(region != "Antarctica") %>% filter(region != "Greenland")%>% fortify 
+# mp <- ggplot(map_world, aes(x = long, y = lat, group = group)) + 
+#   geom_polygon(colour = "black", size = .1, fill = "white", aes(group = group)) # MAP ONLY
+# mp
+# mp <- ggplot(map_world, aes(x = long, y = lat, group = group)) + 
+#   geom_polygon(colour = "black", size = .1, fill = "white", aes(group = group)) + 
+#   geom_point(data = temp_w_percent, aes(x=Longitude, y= Latitude, color = percent_change, group = NULL )) #  INTRODUCE HEAT
+# mp
