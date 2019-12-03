@@ -37,11 +37,12 @@ are the beneficial choices for their constituency.")
             of industry limitation in the near future, yet
             the legitimacy of these effects is still struggling
             to be recognized in legislation."),
-            h3("Data Sets:"),
-            h4("https://www.kaggle.com/berkeleyearth/climate-change
-               -earth-surface-temperature-data"),
-            h4("https://www.kaggle.com/jboysen/global-food-prices")
-
+            h3("Hypothesis:"),
+            p("As temperature rises, foods that thrive in hotter
+              temperatures will become cheaper because of the increased
+              supply. In contrast, foods that struggle to grow in heat 
+              will become more expense, because the harvest will be small
+              and there will be little supply.")
             )
         )
 )
@@ -80,6 +81,18 @@ page_three <- tabPanel(
             "Data Critique",
             sidebarLayout(
                 sidebarPanel(
+                  h4("Data Summary"),
+                  p(paste0("Number of observations in Market Prices data set: ",
+                           nrow(food_prices))),
+                  p(paste0("Number of observations in Market Prices data set: ",
+                           nrow(global_temp))),
+                  p("Cities in both data sets:"),
+                  p(toString(cities_list)),
+                  p("These cities are significant because they are a part of the
+                  major cities where global temperatures were collected and a part
+                  of the cities where local market place prices were recorded. These
+                    cities are the ones that we are able to conduct our analysis on
+                    as they have all of the data we are looking for.")
                 ),
                 mainPanel(
                     p("A strength is that both data sets are
