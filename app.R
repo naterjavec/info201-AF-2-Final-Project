@@ -1,5 +1,6 @@
 library("shiny")
 library("plotly")
+library("shinythemes")
 source("P2analysis.R")
 library("ggplot2")
 
@@ -55,6 +56,7 @@ page_two <- tabPanel(
                               )
               ),
               mainPanel(
+                h3("The Problem"),
                   p("If the scope of climate change extends to food prices, 
                     then many countries will find themselves at an extreme
                     disadvantage in the global market, and citizens of
@@ -67,7 +69,9 @@ page_two <- tabPanel(
                     companies to wedge a gap between the upper class and
                     the middle and lower class, creating more divide than 
                     our nation already faces."),
+
                   plotlyOutput("food_plot")
+
               )
             )
 )
@@ -101,23 +105,27 @@ page_three <- tabPanel(
         )
         
 page_four <- tabPanel(
-            "Visualization",
+            "Temp vs. Price",
             sidebarLayout(
                 sidebarPanel(#Commentary on visualization
                     selectInput("city_select", "Choose a City:",
-                                choices = cities_list),
+                                choices = c("Aleppo", "Delhi")),
                     selectInput("food", "Choose a Food:",
-                            choices = c("Oil", "Rice", "Wheat", "Sugar",
-                                        "Lentils", "Maize")
-                )),
+                            choices = c("Rice", "Sugar", "Lentils")),
+                    h3("City Information"),
+                    h5("Aleppo"),
+                    p("city info"),
+                    h5("Delhi"),
+                    p("city info")
+                    
+                ),
                 mainPanel(
 
                     plotlyOutput("cityPlot")
-
                 )
             )
 )
-        
+
 page_five <- tabPanel(
             "About",
             sidebarLayout(
@@ -134,27 +142,34 @@ page_five <- tabPanel(
                     and in-page formatting, connecting the
                       server to the user interface, and inputting
                       visualizations into the UI."),
-                    p("Ethan:"),
+                    p("Ethan: I worked on implementing the Techichal
+                      Report and Project proposal, along with the hosting
+                      of the Shiny App. I also had a role in troubleshooting
+                      GitHub branches and analysis files and functions."),
+
                     p("Tyler:"),
                     h3("Data Sets:"),
                     h5(uiOutput("tab")),
                     h5(uiOutput("tab2"))
                 ),
                 mainPanel(
-                  h3("About"),
-                    p("In the project, we found ourselves wanting to
+                    h3("Challenges"),
+                    p("In this project, we found ourselves wanting to
                       compare many different types of crops in order 
                       to get a better picture of the effects of 
                       climate change, however, were unable to do
                       so because of time constraints. In addition,
                       comparing different times of the year, as 
                       opposed to solely June 1st of each year, would
-                      have also provided us with more credibility.
-                      At the same time, we believe that our
+                      have also provided us with more credibility."),
+                    h3("Usage"),
+                     p(" At the same time, we believe that our
                       consistency among variables such as time
                       of year and crop are what makes the project
                       reliable and appeals to the ease of
-                      readability for the user. From this, 
+                      readability for the user."),
+                    h3("Learning Opprotunities"),
+                      p("From this, 
                       we learned how to apply Shiny to real-world 
                       scenarios and get results. From here, one
                       may want to pursue using a different data
@@ -167,6 +182,7 @@ page_five <- tabPanel(
         )
 
 ui <- navbarPage(
+            theme = shinytheme("united"),
             "The Effect of Climate Change on Food Prices",
             page_one,
             page_two,
