@@ -6,6 +6,7 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(data.table)
+library(tidyr)
 
 #Download data sets as variables
 food_prices <- read.csv("data/wfp_market_food_prices.csv")
@@ -21,6 +22,15 @@ cities_food <- unique(food_prices$adm1_name)
 
 #Select from list of cities in both datasets
 cities_list <- intersect(cities_food, cities_temp)
+
+cities_list <- c(cities_list)
+
+summary <- function(){
+  
+  return(paste("Cities in both data set: ", cities_list,
+               " Number of observations in Market Prices data set: ", nrow(food_prices),
+               " Number of observations in Global Temperature data set: ", nrow(global_temp), sep = '/n'))
+}
 
 
 
@@ -90,7 +100,7 @@ line_plot <- function(df, city, food){
   title <- paste(food, "in", city, "Over Time")
   return(plot_ly(df, x = ~date, y = ~AverageTemperature,
                  name = 'Average Temperature',
-                 type = 'scatter', mode = 'lines',
+                 type = 'scatter', mode = 'markers',
                  line = list(color = 'rgb(205, 12, 24)', width = 4)) %>%
            add_trace(y = ~mp_price, name = 'Market Price',
                      line = list(color = 'rgb(22, 96, 167)', width = 4)) %>%
@@ -102,14 +112,14 @@ line_plot <- function(df, city, food){
 
 
 #takes in city and food and returns information as plot
-#data_and_plot <- function(city = "Delhi", food = "Wheat"){
-#  city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
-#  return(line_plot(city_data, city, food))
-#}
+
 data_and_plot <- function(city = "Delhi", food = "Wheat"){
   city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
-  return(line_plot(city_data, city, food))
+   return(line_plot(city_data, city, food))
 }
+
+
+
 
 #Tests and Plots
 
@@ -146,13 +156,13 @@ data_and_plot <- function(city = "Delhi", food = "Wheat"){
 temp_w_percent <- global_temp %>%
   mutate(month = substring(dt, 6, 7),
          year = as.numeric(substring(dt, 1, 4))) %>%
-  filter(month == "10") %>%
+  filter(month == "09") %>%
   group_by(City) %>%
   filter(year == 2006 | year == 2012) %>%
   mutate(change = AverageTemperature - lag(AverageTemperature, default = AverageTemperature[1])) %>%
-  mutate(percent_change = change / lag(AverageTemperature, default = AverageTemperature[1]) * 100) %>%
-  filter(percent_change != 0) %>%
-  select(City, Country, percent_change, Longitude, Latitude)
+  mutate(temp_change = change / lag(AverageTemperature, default = AverageTemperature[1]) * 100) %>%
+  filter(temp_change != 0) %>%
+  select(City, Country, temp_change, Longitude, Latitude)
 
 
 # Mutating the food data set so that it contains only the month of October
@@ -162,46 +172,48 @@ temp_w_percent <- global_temp %>%
 # added to the data set
 
 food_change<- food_prices %>%
-  filter(mp_month == 10) %>%
+  filter(mp_month == 9) %>%
   group_by(adm1_name, cm_name) %>%
   filter(mp_year == 2006 | mp_year == 2014) %>%
-  mutate(price_change = mp_price - lag(mp_price, default = mp_price[1]),
+  mutate(change = mp_price - lag(mp_price, default = mp_price[1]),
          City = adm1_name) %>%
-  mutate(food_percent = price_change / lag(mp_price, default = mp_price[1]) * 100) %>%
+  mutate(price_change = change / lag(mp_price, default = mp_price[1]) * 100) %>%
   filter(price_change != 0) %>%
-  select(City, adm0_name, adm1_name, cm_name, food_percent, mp_month, mp_year)
+  select(City, adm0_name, adm1_name, cm_name, price_change, mp_month, mp_year)
 
 
 #Data with percent changes for both food and temperature
 percent_change <- merge(food_change, temp_w_percent, by = "City")
-
 
 #----------------------Bar Graph With Percent Change--------------------------
 
 #Function to create bar plot based on specific foods
 #Returns barchart with any city that has data about the food parameter entered
 # includes "like" function so that similar foods will be included in graph
+
 create_bar_chart <- function(food){
-  specific_data <- percent_change[percent_change$cm_name %like% food, ]
-  return(plot_ly(specific_data,
-                 x = ~City,
-                 y = ~percent_change,
-                 type = 'bar',
-                 name = 'Temperature Percent Change') %>%
-           add_trace(y = ~food_percent,
-                     name = 'Food Price Percent Change') %>%
-           layout(yaxis = list(title = 'Percent')))
+  specific_data <- percent_change[percent_change$cm_name %like% food, ] %>%
+    select(City, price_change, temp_change)
+  piping_data <- specific_data %>%
+    gather("Stat", "Value", -City)
+  p <- ggplot(piping_data, aes(x = City, y = Value, fill = Stat)) +
+    geom_col(position = "dodge") +
+    labs(title = paste(food, "Prices as Compared to Climate Change"),
+         y = "Percent Change") +
+    scale_fill_discrete(name = "Legend")
+  return(ggplotly(p))
 }
 create_bar_chart("Wheat")
 #----Bar chart tests----
 
-specific_data <- percent_change[percent_change$cm_name %like% "Oil", ]
-#View(specific_data)
 
-#print(create_bar_chart("Rice"))
 
-#Wheat test
-#print(create_bar_chart("Oil"))
+print(create_bar_chart("Rice"))
+
+
+
+#Bar chart tests
+
 
 #Foods that are best for shiny app:
 #Oil, Rice, Wheat, Sugar, Lentils, Maize, Bread
