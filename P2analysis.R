@@ -33,6 +33,7 @@ summary <- function(){
 }
 
 
+toString(cities_list)
 
 #----------------------Creating Line / Scatter Plot--------------------------
 
