@@ -86,7 +86,6 @@ page_three <- tabPanel(
             "Data Critique",
             sidebarLayout(
                 sidebarPanel(
-                    #Strengths and weaknesses from project proposal
                 ),
                 mainPanel(
                     p("A strength is that both data sets are
