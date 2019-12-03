@@ -36,11 +36,7 @@ are the beneficial choices for their constituency.")
             people could suffer effects far outweighing those
             of industry limitation in the near future, yet
             the legitimacy of these effects is still struggling
-            to be recognized in legislation."),
-            h3("Data Sets:"),
-            h4("https://www.kaggle.com/berkeleyearth/climate-change
-               -earth-surface-temperature-data"),
-            h4("https://www.kaggle.com/jboysen/global-food-prices")
+            to be recognized in legislation.")
 
             )
         )
@@ -176,7 +172,15 @@ page_five <- tabPanel(
                       set for food prices that goes back further
                       in time and provide more cities in Europe 
                       and North America in order to see a more
-                      accurate trend.")
+                      accurate trend."),
+                    h3("Affiliation"),
+                    p("INFO-201A: Technical Foundations of Informatics",
+                      br(),
+                      "The Information School",
+                      br(),
+                      "University of Washington",
+                      br(),
+                      "Autumn 2019")
                 )
             )
         )
