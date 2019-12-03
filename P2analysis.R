@@ -208,13 +208,6 @@ create_bar_chart("Wheat")
 
 
 
-print(create_bar_chart("Rice"))
-
-
-
-#Bar chart tests
-
-
 #Foods that are best for shiny app:
 #Oil, Rice, Wheat, Sugar, Lentils, Maize, Bread
 
