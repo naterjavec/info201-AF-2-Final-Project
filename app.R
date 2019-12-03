@@ -35,7 +35,22 @@ are the beneficial choices for their constituency.")
             people could suffer effects far outweighing those
             of industry limitation in the near future, yet
             the legitimacy of these effects is still struggling
-            to be recognized in legislation.")
+            to be recognized in legislation."),
+            h3(#add hyperlinks to datasets here
+            ),
+            h3("Working Through the Data"),
+            p("While working on this project, each group member was
+            responsible for different parts of the report. They are
+            as follows:"),
+            p("Natalie:"),
+            p("Sierra:"),
+            p("Ethan:"),
+            p("Tyler:"),
+            h3("Data Sets:"),
+            h4("https://www.kaggle.com/berkeleyearth/climate-change
+               -earth-surface-temperature-data"),
+            h4("https://www.kaggle.com/jboysen/global-food-prices")
+
             )
         )
 )
@@ -113,7 +128,9 @@ page_four <- tabPanel(
                     
                 ),
                 mainPanel(
+
                     plotlyOutput("cityPlot")
+
                 )
             )
 )
@@ -171,7 +188,7 @@ ui <- navbarPage(
             page_four, 
             page_five
         )
-
+        
 server <- function(input, output) {
   
   output$cityPlot <- renderPlotly({
