@@ -3,7 +3,6 @@ library("plotly")
 source("P2analysis.R")
 library("ggplot2")
 
-#----------------Questions: why doesn't pg 2 list work?
 
 page_one <- tabPanel(
     "Introduction",
@@ -36,7 +35,22 @@ are the beneficial choices for their constituency.")
             people could suffer effects far outweighing those
             of industry limitation in the near future, yet
             the legitimacy of these effects is still struggling
-            to be recognized in legislation.")
+            to be recognized in legislation."),
+            h3(#add hyperlinks to datasets here
+            ),
+            h3("Working Through the Data"),
+            p("While working on this project, each group member was
+            responsible for different parts of the report. They are
+            as follows:"),
+            p("Natalie:"),
+            p("Sierra:"),
+            p("Ethan:"),
+            p("Tyler:"),
+            h3("Data Sets:"),
+            h4("https://www.kaggle.com/berkeleyearth/climate-change
+               -earth-surface-temperature-data"),
+            h4("https://www.kaggle.com/jboysen/global-food-prices")
+
             )
         )
 )
@@ -108,7 +122,9 @@ page_four <- tabPanel(
                                         "Lentils", "Maize")
                 )),
                 mainPanel(
+
                     plotlyOutput("cityPlot")
+
                 )
             )
 )
@@ -166,7 +182,7 @@ ui <- navbarPage(
             page_four, 
             page_five
         )
-
+        
 server <- function(input, output) {
   
   output$cityPlot <- renderPlotly({
@@ -175,10 +191,6 @@ server <- function(input, output) {
   output$food_plot <- renderPlotly({
     create_bar_chart(input$pg2_food)
   })
-  
-  #  output$cityPlot <- renderPlot({
-  #     data_and_plot(city_temp_data(input$City), city_food_data(input$cm_name))
-  #  })
   temp_url <- a("here", href="https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data")
   output$tab <- renderUI({
     tagList("To learn more about global temperatures, click", temp_url)
