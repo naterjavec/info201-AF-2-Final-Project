@@ -107,11 +107,12 @@ line_plot <- function(df, city, food){
 #  city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
 #  return(line_plot(city_data, city, food))
 #}
-data_and_plot <- function(city = "Delhi"){
-  food <- "Wheat"
+data_and_plot <- function(city = "Delhi", food = "Wheat"){
   city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
   return(line_plot(city_data, city, food))
 }
+
+
 #data_and_plot()
 
 #Tests and Plots
@@ -196,6 +197,8 @@ create_bar_chart <- function(food){
                      name = 'Food Price Percent Change') %>%
            layout(yaxis = list(title = 'Percent')))
 }
+
+t <- create_bar_chart("Rice")
 
 
 

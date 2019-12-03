@@ -3,7 +3,7 @@ library("plotly")
 source("P2analysis.R")
 library("ggplot2")
 
-#First page, describes the project.
+
 page_one <- tabPanel(
     "Introduction",
     titlePanel("Introduction"),
@@ -18,7 +18,8 @@ that affect those prices. Their values and quality of
 life over profitability may be in direct contrast with
 each other. It is the policymakers’ task to determine
 whether limiting industries or risking people’s livelihood
-are the beneficial choices for their constituency.")),
+are the beneficial choices for their constituency.")
+        ),
         mainPanel(
             h3("Ask Yourself..."),
             h4("Is the price of food in major cities affected
@@ -58,9 +59,10 @@ page_two <- tabPanel(
             "Problem Situation",
             sidebarLayout(
               sidebarPanel(
-  #                selectInput("pg2_food", "Choose a Food:",
-  #                            choices = "Oil", "Rice", "Wheat", "Sugar",
-   #                           "Lentils", "Maize")
+                  selectInput("pg2_food", "Choose a Food:",
+                              choices = c("Oil", "Rice", "Wheat", "Sugar",
+                              "Lentils", "Maize")
+                              )
               ),
               mainPanel(
                   p("If the scope of climate change extends to food prices, 
@@ -75,7 +77,7 @@ page_two <- tabPanel(
                     companies to wedge a gap between the upper class and
                     the middle and lower class, creating more divide than 
                     our nation already faces."),
-                 # plotOutput(create_bar_chart())
+                  plotlyOutput("food_plot")
               )
             )
 )
@@ -114,10 +116,15 @@ page_four <- tabPanel(
             sidebarLayout(
                 sidebarPanel(#Commentary on visualization
                     selectInput("city_select", "Choose a City:",
-                                choices = cities_list)),
+                                choices = cities_list),
+                    selectInput("food", "Choose a Food:",
+                            choices = c("Oil", "Rice", "Wheat", "Sugar",
+                                        "Lentils", "Maize")
+                )),
                 mainPanel(
-                    #data_and_plot("Delhi", "Wheat")
-                    plotOutput("cityPlot")
+
+                    plotlyOutput("cityPlot")
+
                 )
             )
 )
@@ -134,7 +141,7 @@ page_five <- tabPanel(
                     p("Sierra: I worked on creating the page format 
                     and in-page formatting, connecting the
                       server to the user interface, and inputting
-                      visualizations into the ui."),
+                      visualizations into the UI."),
                     p("Ethan:"),
                     p("Tyler:"),
                     h3("Data Sets:"),
@@ -142,6 +149,7 @@ page_five <- tabPanel(
                     h5(uiOutput("tab2"))
                 ),
                 mainPanel(
+                  h3("About"),
                     p("In the project, we found ourselves wanting to
                       compare many different types of crops in order 
                       to get a better picture of the effects of 
@@ -165,8 +173,6 @@ page_five <- tabPanel(
                 )
             )
         )
-        
-
 
 ui <- navbarPage(
             "The Effect of Climate Change on Food Prices",
@@ -178,18 +184,23 @@ ui <- navbarPage(
         )
         
 server <- function(input, output) {
-
-       # output$cityPlot <- renderPlot({
-        #    data_and_plot(city_temp_data(input$City), city_food_data(input$cm_name))
-        #})
-    
-    #output$plot <- renderPlotly(data_and_plot())
-        #plot_ly()
-        #datasetInput <- eventReactive(input$update,
-        #    switch(input$data_and_plot))
-        #output$view <- renderPlotly
+  
+  output$cityPlot <- renderPlotly({
+    data_and_plot(input$city_select, input$food)
+  })
+  output$food_plot <- renderPlotly({
+    create_bar_chart(input$pg2_food)
+  })
+  temp_url <- a("here", href="https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data")
+  output$tab <- renderUI({
+    tagList("To learn more about global temperatures, click", temp_url)
+  })
+  food_url <- a("here", href="https://www.kaggle.com/jboysen/global-food-prices")
+  output$tab2 <- renderUI({
+    tagList("To learn more about food prices, click", food_url)
+  })
 }
-        
+
 shinyApp(ui = ui, server = server)
 
 
