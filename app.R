@@ -104,15 +104,20 @@ page_four <- tabPanel(
                     selectInput("city_select", "Choose a City:",
                                 choices = c("Aleppo", "Delhi")),
                     selectInput("food", "Choose a Food:",
-                            choices = c("Rice", "Sugar", "Lentils"),
-                            h3()
-                )),
+                            choices = c("Rice", "Sugar", "Lentils")),
+                    h3("City Information"),
+                    h5("Aleppo"),
+                    p("city info"),
+                    h5("Delhi"),
+                    p("city info")
+                    
+                ),
                 mainPanel(
                     plotlyOutput("cityPlot")
                 )
             )
 )
-        
+
 page_five <- tabPanel(
             "About",
             sidebarLayout(
