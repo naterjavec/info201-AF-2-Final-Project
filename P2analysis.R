@@ -22,6 +22,13 @@ cities_food <- unique(food_prices$adm1_name)
 #Select from list of cities in both datasets
 cities_list <- intersect(cities_food, cities_temp)
 
+summary <- function(){
+  print("Cities in both data set: ")
+  print(cities_list)
+  print("Number of observations in Market Prices data set: ", nrow(food_prices))
+  print("Number of observations in Global Temperature data set: ", nrow(global_temp))
+}
+
 
 
 #----------------------Creating Line / Scatter Plot--------------------------
