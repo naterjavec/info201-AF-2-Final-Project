@@ -77,7 +77,6 @@ merge_data <- function(df1, df2) {
 
 #Merge isnt working - Ethan will fix dates
 example <- merge_data(city_food_data("Delhi", "Wheat"), city_temp_data("Delhi"))
-#View(example)
 
 
 
@@ -118,6 +117,8 @@ data_and_plot <- function(city = "Delhi", food = "Wheat"){
   city_data <- merge_data(city_food_data(city, food), city_temp_data(city))
    return(line_plot(city_data, city, food))
 }
+
+
 
 
 #Tests and Plots
@@ -164,7 +165,6 @@ temp_w_percent <- global_temp %>%
   select(City, Country, temp_change, Longitude, Latitude)
 
 
-
 # Mutating the food data set so that it contains only the month of October
 # from 2006 to 2014 (most cities did not have data for 2012). The difference of 
 # the two prices for each food is calculated and divided by the price in
@@ -203,6 +203,10 @@ create_bar_chart <- function(food){
     scale_fill_discrete(name = "Legend")
   return(ggplotly(p))
 }
+create_bar_chart("Wheat")
+#----Bar chart tests----
+
+
 
 print(create_bar_chart("Rice"))
 
@@ -210,11 +214,12 @@ print(create_bar_chart("Rice"))
 
 #Bar chart tests
 
+
 #Foods that are best for shiny app:
 #Oil, Rice, Wheat, Sugar, Lentils, Maize, Bread
 
 
-#----------------------Global Temp Heat Map (w/ Percent Change)--------------------------
+#------------------Global Temp Heat Map (w/ Percent Change)---------------------
 
 
 

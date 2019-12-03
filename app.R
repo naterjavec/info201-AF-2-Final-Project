@@ -66,6 +66,7 @@ page_two <- tabPanel(
                               )
               ),
               mainPanel(
+                h3("The Problem"),
                   p("If the scope of climate change extends to food prices, 
                     then many countries will find themselves at an extreme
                     disadvantage in the global market, and citizens of
@@ -114,22 +115,27 @@ page_three <- tabPanel(
         )
         
 page_four <- tabPanel(
-            "Visualization",
+            "Temp vs. Price",
             sidebarLayout(
                 sidebarPanel(#Commentary on visualization
                     selectInput("city_select", "Choose a City:",
-                                choices = cities_list),
+                                choices = c("Aleppo", "Delhi")),
                     selectInput("food", "Choose a Food:",
-                            choices = c("Oil", "Rice", "Wheat", "Sugar",
-                                        "Lentils", "Maize")
-                )),
+                            choices = c("Rice", "Sugar", "Lentils")),
+                    h3("City Information"),
+                    h5("Aleppo"),
+                    p("city info"),
+                    h5("Delhi"),
+                    p("city info")
+                    
+                ),
                 mainPanel(
 
                     plotlyOutput("cityPlot")
                 )
             )
 )
-        
+
 page_five <- tabPanel(
             "About",
             sidebarLayout(
