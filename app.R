@@ -144,8 +144,12 @@ page_four <- tabPanel(
                     and mustard crops in the outskirts of the city.")
                 ),
                 mainPanel(
-
-                    plotlyOutput("city_plot")
+                    plotlyOutput("city_plot"),
+                    h3("Data Comparison"),
+                    p("By comparing temperature and price on the same chart, one can quickly
+                      and easily compare the fluctuations of the two. Rice, sugar, and lentils
+                      are commonly grown in the two selected cities, making them the
+                      best and most reliable data points.")
                 )
             )
 )
