@@ -54,8 +54,7 @@ page_two <- tabPanel(
               sidebarPanel(
                   selectInput("pg2_food", "Choose a Food:",
                               choices = c("Oil", "Rice", "Wheat", "Sugar",
-                              "Lentils", "Maize")
-                              ),
+                              "Lentils", "Maize")),
                   h3("Growing Conditions"),
                   p("To better interpret the data and the effect the change
                     in temperature has on the harvest size, please refer
@@ -91,13 +90,11 @@ page_two <- tabPanel(
                     companies to wedge a gap between the upper class and
                     the middle and lower class, creating more divide than
                     our nation already faces."),
-
                   plotlyOutput("food_plot")
 
               )
             )
 )
-        
 page_three <- tabPanel(
             "Data Critique",
             sidebarLayout(
@@ -105,7 +102,7 @@ page_three <- tabPanel(
                   h4("Data Summary"),
                   p(paste0("Number of observations in Market Prices data set: ",
                            nrow(food_prices))),
-                  p(paste0("Number of observations in Market Prices data set: ",
+                  p(paste0("Number of observations in Global Temperature data set: ",
                            nrow(global_temp))),
                   p("Cities in both data sets:"),
                   p(toString(cities_list)),
