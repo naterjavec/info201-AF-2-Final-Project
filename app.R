@@ -115,7 +115,17 @@ page_three <- tabPanel(
                     slow process, and our specific
                     data set for food prices spans
                     many locations but
-                    only dates about a decade back.")
+                    only dates about a decade back."),
+                  p(" It is difficult to show such a
+                  slow process over so few years.
+                  To prove that there is data that
+                  the average temperature is generally
+                  rising over the last 200 years, we
+                  have included this graph as evidence.
+                  After reviewing several data from several major cities
+                  of the same month each year,
+                  an upward trend of temperature is
+                  evident, as shown above.")
                 )
             )
         )
@@ -175,7 +185,9 @@ page_five <- tabPanel(
                       of the Shiny App. I also had a role in troubleshooting
                       GitHub branches and analysis files and functions."),
 
-                    p("Tyler:"),
+                    p("Tyler: I initially evaluated the data sets, and 
+                    contributed to the brainstorming and creation of 
+                    the visualizations"),
                     h3("Data Sets:"),
                     h5(uiOutput("tab")),
                     h5(uiOutput("tab2"))
