@@ -191,14 +191,18 @@ create_temp_trends <- function() {
            year = as.numeric(substring(dt, 1, 4))) %>%
     filter(month == "09") %>%
     filter(AverageTemperature != "NA") %>%
-    filter(City %in% c("Kabul", "Dhaka", "Santiago", "Kinshasa", "Delhi",
-                       "Baghdad", "Nairobi", "Kano", "Lagos", "Lima", "Dakar",
-                       "Aleppo", "Harare")) %>%
+    filter(City %in% c("Kabul", "Dhaka", "Santiago", "Kinshasa",
+                       "Baghdad", "Nairobi", "Kano", "Lima", "Dakar",
+                       "Aleppo")) %>%
     group_by(City)
-  temp_trends <- ggplot(annual_temp) +
-    geom_line(mapping = aes(x = year, y = AverageTemperature, color = City),
-              size = 1)
+  temp_trends <- ggplot(annual_temp, aes(x = year,
+                                         y = AverageTemperature,
+                                         color = City,
+                                         alpha = 0.1)) +
+    geom_point() +
+    geom_smooth(method=lm, se=FALSE)
   return(temp_trends)
 }
+create_temp_trends()
 # Kabul, Dhaka, Santiago, Kinshasa, Delhi, Baghdad, Nairobi, Kano,
 # Lagos, Lima, Dakar, Aleppo, Harare
