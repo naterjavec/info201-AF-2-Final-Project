@@ -54,8 +54,7 @@ page_two <- tabPanel(
               sidebarPanel(
                   selectInput("pg2_food", "Choose a Food:",
                               choices = c("Oil", "Rice", "Wheat", "Sugar",
-                              "Lentils", "Maize")
-                              )
+                              "Lentils", "Maize"))
               ),
               mainPanel(
                 h3("The Problem"),
