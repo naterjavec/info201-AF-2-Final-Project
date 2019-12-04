@@ -43,6 +43,7 @@ are the beneficial choices for their constituency.")
               supply. In contrast, foods that struggle to grow in heat 
               will become more expense, because the harvest will be small
               and there will be little supply.")
+
             )
         )
 )
@@ -126,10 +127,17 @@ page_four <- tabPanel(
                     selectInput("food", "Choose a Food:",
                             choices = c("Rice", "Sugar", "Lentils")),
                     h3("City Information"),
-                    h5("Aleppo"),
-                    p("city info"),
-                    h5("Delhi"),
-                    p("city info")
+                    h4("Aleppo"),
+                    p("This city is the capital of Syria, located in the northwestern corner
+                      of the country and dates back to Mesopotamian times due to its key central
+                      location for trading. Typical crops grown in Syria include olives, wheat,
+                      barley, lentils, and chickpeas."),
+                    h4("Delhi"),
+                    p("This is a city and territory that hosts India's capital. Like Aleppo,
+                      it dates back to the 6th century BCE. Located in the northern region
+                      of India, it is home to some of India's wealiest residents, making it
+                      the second wealiest city in the entire nation. It is common to see wheat
+                      and mustard crops in the outskirts of the city.")
                     
                 ),
                 mainPanel(
@@ -189,7 +197,15 @@ page_five <- tabPanel(
                       set for food prices that goes back further
                       in time and provide more cities in Europe 
                       and North America in order to see a more
-                      accurate trend.")
+                      accurate trend."),
+                    h3("Affiliation"),
+                    p("INFO-201A: Technical Foundations of Informatics",
+                      br(),
+                      "The Information School",
+                      br(),
+                      "University of Washington",
+                      br(),
+                      "Autumn 2019")
                 )
             )
         )
