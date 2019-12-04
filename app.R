@@ -115,7 +115,17 @@ page_three <- tabPanel(
                     slow process, and our specific
                     data set for food prices spans
                     many locations but
-                    only dates about a decade back.")
+                    only dates about a decade back."),
+                  p(" It is difficult to show such a
+                  slow process over so few years.
+                  To prove that there is data that
+                  the average temperature is generally
+                  rising over the last 200 years, we
+                  have included this graph as evidence.
+                  After reviewing several data from several major cities
+                  of the same month each year,
+                  an upward trend of temperature is
+                  evident, as shown above.")
                 )
             )
         )
