@@ -55,7 +55,27 @@ page_two <- tabPanel(
                   selectInput("pg2_food", "Choose a Food:",
                               choices = c("Oil", "Rice", "Wheat", "Sugar",
                               "Lentils", "Maize")
-                              )
+                              ),
+                  h3("Growing Conditions"),
+                  p("To better interpret the data and the effect the change
+                    in temperature has on the harvest size, please refer
+                    to the growing conditions below"),
+                  h4("Oil"),
+                  p("The basis of many oils, such as vegetable or sunflower,
+                    grow best in warmer environments"),
+                  h4("Rice"),
+                  p("Rice needs warmer temperatures to grow that cannot fall
+                    below 15* C"),
+                  h4("Wheat"),
+                  p("Wheat grows best between 21*C to 24*C, but cannot survive
+                    in climates too hot or cold"),
+                  h4("Sugar"),
+                  p("Sugar requires very warm and tropical environments to grow"),
+                  h4("Lentils"),
+                  p("Lentils grow best in cool weather, typically under 18*C"),
+                  h4("Maize"),
+                  p("Maize needs temperatures from 21*C to 27*C, but cannot
+                    tolerate much outside that zone")
               ),
               mainPanel(
                 h3("The Problem"),
