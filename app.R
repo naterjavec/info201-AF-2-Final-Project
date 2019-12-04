@@ -97,6 +97,7 @@ page_three <- tabPanel(
                   looking for.")
                 ),
                 mainPanel(
+                  plotOutput("temp_chart"),
                     p("A strength is that both data sets are
                     comprehensive,
                     with very little missing values.
@@ -239,5 +240,8 @@ server <- function(input, output) {
   output$tab2 <- renderUI({
     tagList("To learn more about food prices, click", food_url)
   })
+  output$temp_chart <- renderPlot(
+    create_temp_trends()
+  )
 }
 shinyApp(ui = ui, server = server)
