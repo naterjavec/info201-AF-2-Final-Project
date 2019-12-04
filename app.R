@@ -40,7 +40,7 @@ are the beneficial choices for their constituency.")
             h3("Hypothesis:"),
             p("As temperature rises, foods that thrive in hotter
               temperatures will become cheaper because of the increased
-              supply. In contrast, foods that struggle to grow in heat 
+              supply. In contrast, foods that struggle to grow in heat
               will become more expense, because the harvest will be small
               and there will be little supply.")
 
@@ -59,17 +59,17 @@ page_two <- tabPanel(
               ),
               mainPanel(
                 h3("The Problem"),
-                  p("If the scope of climate change extends to food prices, 
+                  p("If the scope of climate change extends to food prices,
                     then many countries will find themselves at an extreme
                     disadvantage in the global market, and citizens of
                     those countries that depend on their natural resources
-                    for food could go hungry, heavily increasing the need 
-                    for a solution to world hunger. While it is already 
+                    for food could go hungry, heavily increasing the need
+                    for a solution to world hunger. While it is already
                     prevalent in the United States that a discrepancy
                     exists between reasonably priced food and its quality,
                     this change would create yet another opportunity for
                     companies to wedge a gap between the upper class and
-                    the middle and lower class, creating more divide than 
+                    the middle and lower class, creating more divide than
                     our nation already faces."),
 
                   plotlyOutput("food_plot")
@@ -90,10 +90,11 @@ page_three <- tabPanel(
                   p("Cities in both data sets:"),
                   p(toString(cities_list)),
                   p("These cities are significant because they are a part of the
-                  major cities where global temperatures were collected and a part
-                  of the cities where local market place prices were recorded. These
-                    cities are the ones that we are able to conduct our analysis on
-                    as they have all of the data we are looking for.")
+                  major cities where global temperatures were collected and a
+                  part of the cities where local market place prices were
+                  recorded. These cities are the ones that we are able to
+                  conduct our analysis onas they have all of the data we are
+                  looking for.")
                 ),
                 mainPanel(
                     p("A strength is that both data sets are
@@ -104,7 +105,7 @@ page_three <- tabPanel(
                     cities are the only locations
                     considered, showcasing the impact
                     of this global phenomenon for only
-                    a certain group of people. The 
+                    a certain group of people. The
                     cities included in
                     these data sets also must
                     overlap, otherwise no trend between
@@ -128,21 +129,22 @@ page_four <- tabPanel(
                             choices = c("Rice", "Sugar", "Lentils")),
                     h3("City Information"),
                     h4("Aleppo"),
-                    p("This city is the capital of Syria, located in the northwestern corner
-                      of the country and dates back to Mesopotamian times due to its key central
-                      location for trading. Typical crops grown in Syria include olives, wheat,
-                      barley, lentils, and chickpeas."),
+                    p("This city is the capital of Syria, located in the
+                    northwestern corner of the country and dates back to
+                    Mesopotamian times due to its key central location for
+                    trading. Typical crops grown in Syria include olives, wheat,
+                    barley, lentils, and chickpeas."),
                     h4("Delhi"),
-                    p("This is a city and territory that hosts India's capital. Like Aleppo,
-                      it dates back to the 6th century BCE. Located in the northern region
-                      of India, it is home to some of India's wealiest residents, making it
-                      the second wealiest city in the entire nation. It is common to see wheat
-                      and mustard crops in the outskirts of the city.")
-                    
+                    p("This is a city and territory that hosts India's capital.
+                    Like Aleppo, it dates back to the 6th century BCE. Located
+                    in the northern region of India, it is home to some of
+                    India's wealiest residents, making it the second wealiest
+                    city in the entire nation. It is common to see wheat
+                    and mustard crops in the outskirts of the city.")
                 ),
                 mainPanel(
 
-                    plotlyOutput("cityPlot")
+                    plotlyOutput("city_plot")
                 )
             )
 )
@@ -152,14 +154,14 @@ page_five <- tabPanel(
             sidebarLayout(
                 sidebarPanel(
                     h3("Working Through the Data"),
-                    p("While working on this project, each group 
-                    member was responsible for different parts 
+                    p("While working on this project, each group
+                    member was responsible for different parts
                     of the report. They are as follows:"),
                     p("Natalie: My contributions were primarily parsing
                       through and cleaning the data. From there, I created
                       the interactive visualizations and helped add them to
                       the app."),
-                    p("Sierra: I worked on creating the page format 
+                    p("Sierra: I worked on creating the page format
                     and in-page formatting, connecting the
                       server to the user interface, and inputting
                       visualizations into the UI."),
@@ -176,11 +178,11 @@ page_five <- tabPanel(
                 mainPanel(
                     h3("Challenges"),
                     p("In this project, we found ourselves wanting to
-                      compare many different types of crops in order 
-                      to get a better picture of the effects of 
+                      compare many different types of crops in order
+                      to get a better picture of the effects of
                       climate change, however, were unable to do
                       so because of time constraints. In addition,
-                      comparing different times of the year, as 
+                      comparing different times of the year, as
                       opposed to solely June 1st of each year, would
                       have also provided us with more credibility."),
                     h3("Usage"),
@@ -190,12 +192,12 @@ page_five <- tabPanel(
                       reliable and appeals to the ease of
                       readability for the user."),
                     h3("Learning Opprotunities"),
-                      p("From this, 
-                      we learned how to apply Shiny to real-world 
+                      p("From this,
+                      we learned how to apply Shiny to real-world
                       scenarios and get results. From here, one
                       may want to pursue using a different data
                       set for food prices that goes back further
-                      in time and provide more cities in Europe 
+                      in time and provide more cities in Europe
                       and North America in order to see a more
                       accurate trend."),
                     h3("Affiliation"),
@@ -216,33 +218,26 @@ ui <- navbarPage(
             page_one,
             page_two,
             page_three,
-            page_four, 
+            page_four,
             page_five
         )
         
 server <- function(input, output) {
-  
-  output$cityPlot <- renderPlotly({
+  output$city_plot <- renderPlotly({
     data_and_plot(input$city_select, input$food)
   })
   output$food_plot <- renderPlotly({
     create_bar_chart(input$pg2_food)
   })
-  temp_url <- a("here", href="https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data")
+  temp_url <- a("here",
+                href = "https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data")
   output$tab <- renderUI({
     tagList("To learn more about global temperatures, click", temp_url)
   })
-  food_url <- a("here", href="https://www.kaggle.com/jboysen/global-food-prices")
+  food_url <- a("here",
+                href = "https://www.kaggle.com/jboysen/global-food-prices")
   output$tab2 <- renderUI({
     tagList("To learn more about food prices, click", food_url)
   })
 }
-
 shinyApp(ui = ui, server = server)
-
-
-
-
-
-
-
