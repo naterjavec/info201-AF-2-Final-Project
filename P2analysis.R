@@ -197,10 +197,12 @@ create_temp_trends <- function() {
     group_by(City)
   temp_trends <- ggplot(annual_temp, aes(x = year,
                                          y = AverageTemperature,
-                                         color = City,
-                                         alpha = 0.1)) +
+                                         color = City)) +
     geom_point() +
-    geom_smooth(method=lm, se=FALSE)
+    geom_smooth(method=lm, se=FALSE) +
+    ggtitle("Average Temperature in August over Time") +
+    xlab("Average Temperature (C)") +
+    ylab("Years")
   return(temp_trends)
 }
 create_temp_trends()
