@@ -185,7 +185,9 @@ page_five <- tabPanel(
                       of the Shiny App. I also had a role in troubleshooting
                       GitHub branches and analysis files and functions."),
 
-                    p("Tyler:"),
+                    p("Tyler: I initially evaluated the data sets, and 
+                    contributed to the brainstorming and creation of 
+                    the visualizations"),
                     h3("Data Sets:"),
                     h5(uiOutput("tab")),
                     h5(uiOutput("tab2"))
