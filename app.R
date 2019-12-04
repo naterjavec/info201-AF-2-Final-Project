@@ -97,6 +97,7 @@ page_three <- tabPanel(
                   looking for.")
                 ),
                 mainPanel(
+                  plotOutput("temp_chart"),
                     p("A strength is that both data sets are
                     comprehensive,
                     with very little missing values.
@@ -143,8 +144,12 @@ page_four <- tabPanel(
                     and mustard crops in the outskirts of the city.")
                 ),
                 mainPanel(
-
-                    plotlyOutput("city_plot")
+                    plotlyOutput("city_plot"),
+                    h3("Data Comparison"),
+                    p("By comparing temperature and price on the same chart, one can quickly
+                      and easily compare the fluctuations of the two. Rice, sugar, and lentils
+                      are commonly grown in the two selected cities, making them the
+                      best and most reliable data points.")
                 )
             )
 )
@@ -239,5 +244,8 @@ server <- function(input, output) {
   output$tab2 <- renderUI({
     tagList("To learn more about food prices, click", food_url)
   })
+  output$temp_chart <- renderPlot(
+    create_temp_trends()
+  )
 }
 shinyApp(ui = ui, server = server)
