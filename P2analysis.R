@@ -122,30 +122,6 @@ data_and_plot <- function(city = "Delhi", food = "Wheat"){
 
 
 
-
-#Tests and Plots
-
-#Lima And Maize plot
-#Lima_plot <- data_and_plot("Lima", "Maize (local)")
-#print(Lima_plot)
-
-
-#Delhi and mustard oil plot
-#Delhi_plot <- data_and_plot("Delhi", "Oil (mustard)")
-#print(Delhi_plot)
-
-#Delhi and wheat plot
-#Delhi_wheat <- data_and_plot("Delhi", "Wheat")
-#print(Delhi_wheat)
-
-
-#Unique Delhi Foods
-#delhi_foods <- food_prices %>%
-#  filter(adm1_name == "Delhi")
-
-#delhi_foods_u <- unique(delhi_foods$cm_name)
-
-
 #---------------------- adding percent changes--------------------------
 
 
@@ -215,13 +191,26 @@ create_bar_chart("Wheat")
 #Oil, Rice, Wheat, Sugar, Lentils, Maize, Bread
 
 
-#------------------Global Temp Heat Map (w/ Percent Change)---------------------
-
-
-
-
-
-
+#------------------Temperature Trends in Cities---------------------
+create_temp_trends <- function(){
+  
+  annual_temp <- global_temp %>%
+    mutate(month = substring(dt, 6, 7),
+           year = as.numeric(substring(dt, 1, 4))) %>%
+    filter(month == "09") %>%
+    filter(AverageTemperature != "NA") %>% 
+    filter(City %in% c("Kabul", "Dhaka", "Santiago", "Kinshasa", "Delhi", 
+                       "Baghdad", "Nairobi", "Kano", "Lagos", "Lima", "Dakar",
+                       "Aleppo", "Harare")) %>% 
+    group_by(City)
+  
+  temp_trends <- ggplot(annual_temp) +
+    geom_line(mapping = aes(x = year, y = AverageTemperature, color = City), size = 1)
+  
+  return(temp_trends)
+}
+create_temp_trends()
+# Kabul, Dhaka, Santiago, Kinshasa, Delhi, Baghdad, Nairobi, Kano, Lagos, Lima, Dakar, Aleppo, Harare 
 #----------------------To Do--------------------------
 
 # App server stuff - have it do it for every 
@@ -235,44 +224,3 @@ create_bar_chart("Wheat")
 
 # heat map 
 # using original data sets of both with longitude and lat 
-
-# CURRENTLY BROKEN BELOW, Error: Discrete value supplied to continuous scale
-
-# 
-# temp_w_percent$percent_change <- round(temp_w_percent$percent_change, 0) 
-# typeof(temp_w_percent$Latitude)
-# 
-# heat_map <- ggplot(map_info) +
-#  geom_polygon(mapping = aes(x = long, y = lat, fill = percent_change, group = group, color = region)) + 
-#  geom_point(
-#    data = temp_w_percent,
-#    mapping = aes(x = Longitude, y = Latitude),
-#    color = "white"
-#  ) +
-#   scale_x_continuous()
-#  coord_map()
-# #   geom_sf(color = "black") + 
-# #   scale_fill_continuous(low = "#132B43", high = "Red") +
-# #   labs(fill = "Percent Change of Temperature")
-#  map_world <- borders("world", colour="gray50", fill="gray50") # create a layer of borders
-#  
-#  mp <- ggplot() + map_world +
-#    geom_map(data = temp_w_percent, aes(x = Longitude, y =  Latitude, fill = percent_change),map = )+
-#    scale_x_continuous(limits = c(-200, 200)) +
-#    scale_y_continuous(limits = c(-100, 100)) + 
-#    scale_fill_gradient(low = "white", high = "#000000")
-#  
-# mp
-# 
-# # DIFFERENT ATTEMPT
-# temp_w_percent$Longitude <- as.double(temp_w_percent$Longitude)
-# temp_w_percent$Latitude <- as.double(temp_w_percent$Latitude)
-# 
-# map_world <- map_data('world') %>% filter(region != "Antarctica") %>% filter(region != "Greenland")%>% fortify 
-# mp <- ggplot(map_world, aes(x = long, y = lat, group = group)) + 
-#   geom_polygon(colour = "black", size = .1, fill = "white", aes(group = group)) # MAP ONLY
-# mp
-# mp <- ggplot(map_world, aes(x = long, y = lat, group = group)) + 
-#   geom_polygon(colour = "black", size = .1, fill = "white", aes(group = group)) + 
-#   geom_point(data = temp_w_percent, aes(x=Longitude, y= Latitude, color = percent_change, group = NULL )) #  INTRODUCE HEAT
-# mp
