@@ -201,8 +201,8 @@ create_temp_trends <- function() {
     geom_point() +
     geom_smooth(method=lm, se=FALSE) +
     ggtitle("Average Temperature in August over Time") +
-    xlab("Average Temperature (C)") +
-    ylab("Years")
+    xlab("Years") +
+    ylab("Average Temperature (C)")
   return(temp_trends)
 }
 create_temp_trends()
