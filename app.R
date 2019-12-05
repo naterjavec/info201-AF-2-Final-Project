@@ -1,8 +1,10 @@
 library("shiny")
 library("plotly")
 library("shinythemes")
-source("P2analysis.R")
 library("ggplot2")
+source("P2analysis.R")
+source("app_server.R")
+source("app_ui.R")
 
 
 
